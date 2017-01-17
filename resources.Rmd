@@ -1,0 +1,5 @@
+---
+title: "CS 141 Resources"
+---
+
+This is a place for external resources to be found.

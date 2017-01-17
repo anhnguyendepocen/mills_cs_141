@@ -1,0 +1,5 @@
+---
+title: "CS 141 Schedule"
+---
+
+This is the schedule for the course.
