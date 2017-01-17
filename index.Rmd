@@ -1,5 +1,5 @@
 ---
-title: "My Website"
+title: "CS 141: Machine Learning - Spring 2017"
 ---
 
-Hello, Website!
+Welcome to the course website for the Mills College Machine Learning course, CS 141, to be held in Spring of 2017. 
