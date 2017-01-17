@@ -1,0 +1,141 @@
+---
+title: "CS 141 Syllabus"
+params:
+   email: mpancia@mills.edu
+   room: "Chem/Physics/Math - Room 206"
+   time: "MW: 6-8 PM"
+   instructor: Matthew Pancia
+---
+*****
+
+
+<!--html_preserve-->
+<style type="text/css">
+ul.courseinfo {
+list-style-type: none;
+}
+</style>
+<!--/html_preserve-->
+
+<ul class="courseinfo">
+<li><i class="fa fa-child" aria-hidden="true"></i>  <b>Instructor:</b> `r paste(" ",params$instructor)`</li>
+<li><i class="fa fa-envelope-o" aria-hidden="true"></i> <b>Email:</b> `r paste(" ",params$email)`</li>
+<li><i class="fa fa-home" aria-hidden="true"></i> <b>Location:</b> `r paste(" ",params$room)`</li>
+<li><i class="fa fa-clock-o" aria-hidden="true"></i> <b>Time:</b> `r paste(" ",params$time)`</li>
+<li><i class="fa fa-arrow-up" aria-hidden="true"></i> <b>Last Updated:</b> `r paste(" ",format(Sys.Date(), "%B %d, %Y"))`</li>
+<li><i class='fa fa-download' aria-hidden='true'></i><a href='syllabus.pdf'> Download syllabus (pdf)</a></li>
+</ul>
+
+*****
+# Course Description
+
+Machine Learning is a growing, interdisciplinary field that concerns itself with computer programs that can get better at performing tasks by accumulating experience. These self-improving programs serve as the underpinnings of many of the recent advances we have seen in technologies that have entered our lives in substantial ways: self-driving cars, facial recognition software, speech recognition software, and computers designed to beat Ken Jennings at Jeopardy. 
+
+This course will cover both the basic theory of machine learning and the practical concerns associated to being a machine learning practitioner. This involves gaining a knowledge of the mathematical underpinnings of some statistical learning techniques, implementations and explorations of these techniques (largely using the R programming language), getting a sense of when it is appropriate to apply these techniques, and understanding how to be careful in doing so.
+
+## Content Prerequisites
+This course is designed for students with a working, basic knowledge of:
+
+* **Mathematics**: Probability Theory, Statistics, Linear Algebra, and Multivariate Calculus.
+* **Computer Science**: Basic familiarity with programming (ideally in R or Python) and some theoretical knowledge of data structures and algorithms. 
+
+These are not hard requirements, however -- the course has been designed to be self-contained, and students with sufficient quantitative abilities and determination ought to be able to keep up.
+
+Resources are to provided for students to understand the background material that is relevant to the course as it progresses. 
+
+## Listed Requirements
+The listed requirements for this course are:
+
+* **CS 064**: Computer Concepts and Intermediate Programming
+* **CS 124**: Data Structures and Algorithms
+* **MATH 050**: Linear Algebra
+
+## Textbook
+There will not be a single textbook that encompasses the material for the entire course, but most of the material will follow [Introduction to Statistical Learning with Applications in R](https://goo.gl/8YnuSy) by James, Witten, Hastie and Tibshirani. Other resources (textbook excerpts, videos, etc.) will be provided by the instructor as the course progresses. 
+
+## Course Goals
+
+These can be found online at [the registrar's website](https://www.mills.edu/academics/undergraduate/cs/courses/course_description.php?courseid=cs141).
+
+*****
+
+# Course Logistics
+
+The structure of the lectures will be mixed, consisting (generally) of a lecture and an active working section that allows you to explore related concepts with your classmates. Please bring a laptop to class so that you can follow along. If you cannot bring your own computer, you will be able to use a lab computer in the computer lab.
+
+## Blackboard
+
+This course has a Blackboard site that you can access through the Mills portal. This will mostly be used to communicate grades. The course content will be hosted on the course website.
+
+## Attendance
+
+Attendance is a requirement for this course, and roll will be taken during each class session. Up to 4 absences will be permissible with no penalty, after which you will lose 5\% of your total grade. An excessive number of absences will result in an academic warning.
+
+## Homework
+Homework assignments will be given weekly and due on Mondays. These will generally consist of some textbook-style exercise problems, with potentially a code-based programming component. These must follow writing guidelines that will be distributed separately. 
+
+Homework will **not be accepted late**, so try and turn things in on time. Some homework grades will be dropped at the end of the semester, however, so don't worry too much if a homework or two is missed for a necessary reason.
+
+## Exams
+
+There will be 3 exams, two of which are to be administered **during class time**, and a final that will be administered during standard final hours. If you cannot make these exams, please let the instructor know as soon as possible.
+
+### Exam Times
+The dates and times for the exams are as follows:
+
+| Exam Type | Date | Time |
+| --- | --- | --- | 
+| Midterm \#1 | | | 
+| Midterm \#2 | | | 
+| Final Exam | | | 
+
+### Make-up Policy
+Make-up exams will generally not be given, but requests for make-up exams due to special circumstances will be evaluated on a case-by-case basis. 
+
+
+### Exam Accommodations
+Mills policy states that students with exam accommodations must finalize arrangements with the instructor and SSD at least a week before the exam date. Please remember to take care of any
+accommodations well in advance in order to avoid having to take the exam without them!
+
+## Course Project
+This class will involve the completion of a course project that allows you to exhibit your understanding of machine learning concepts and to produce. The specifics of allowable project structures will be determined based on the course progress and announced before approximately a month into the course.
+
+## Grading
+
+The course will be graded using the following weightings:
+
+* Attendance: 5\%
+* Homework: 35\%
+* Exams: 45\% total
+    + 10\% for each midterm exam;
+    + 20\% for the final exam
+* Course Project: 20\%
+
+*******
+
+# Other Information
+
+## Academic Integrity
+Students are expected to adhere to the Honor Code. Please refer to Sections 126, 128, and 142 of the Student Handbook for details. The content of all homework and exams is assumed to represent the student’s own work. Breaches of academic trust are taken very seriously. The instructor will decide on an appropriate response that may include, lowering grades on a particular assignment, failure of the course, and/or the report of the incident to the Provost and Dean of Faculty for further sanction.
+
+## Collaboration
+You are encouraged to work with other students on taking notes, studying, etc. 
+
+It is also acceptable to work through homework problems with your fellow students, **provided that you do not turn in identical assignments and that the work is your own.** The intent of the homework is to reinforce and test your knowledge of the class material, so be honest in representing your own personal knowledge. 
+
+To that end, if you are collaborating with fellow students on solutions to homework problems, a safe thing to do is to rewrite the solutions by yourself and in your own words, from scratch. The grader will report suspected copying to the instructor. 
+
+## Grading Disputes
+Questions regarding the grading of any assignment or in-class exam must be addressed no later than one week after being returned. In addition, the instructor reserves the right to re-grade any and all parts of an assignment in dispute.
+
+## Incompletes
+
+The *College Policy on Incompletes* states: 
+
+Students qualify for incomplete grades only if they have completed 2/3 of the total coursework and are responding to unforeseen circumstances.
+
+In this course, students must complete all work except the third one-hour exam and the two-hour exam in order to qualify for consideration for an incomplete. Students who have not completed substantial coursework should not assume that they will be ”given” an incomplete at the end of the semester.
+
+## Students With Disabilities
+
+Every effort will be provided to make this class universally accessible. Though "reasonable accommodation" is the legal right of people with disabilities, this course is designed to be universally accessible for students regardless of disability or other individual categorization. Students with needs for alternate learning materials or strategies should contact SSD in the Cowell Building by calling 430-2130 in order for those accommodations and services to be arranged promptly.

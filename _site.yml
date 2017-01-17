@@ -1,0 +1,18 @@
+name: "cs_141_website"
+navbar:
+  title: "CS 141: Machine Learning - Spring 2017"
+  left:
+    - text: "Home"
+      href: index.html
+      icon: fa-home
+    - text: "Syllabus"
+      href: syllabus.html
+      icon: fa-info
+output:
+  html_document:
+    theme: sandstone
+    highlight: textmate
+    include:
+      after_body: footer.html
+exclude: ["*.csv", "*.bib","*.sh","*.R"]       
+output_dir: "."
