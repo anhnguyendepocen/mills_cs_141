@@ -15,4 +15,3 @@ output:
     include:
       after_body: footer.html
 exclude: ["*.csv", "*.bib","*.sh","*.R"]       
-output_dir: "."
