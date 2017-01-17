@@ -23,7 +23,6 @@ list-style-type: none;
 <li><i class="fa fa-home" aria-hidden="true"></i> <b>Location:</b> `r paste(" ",params$room)`</li>
 <li><i class="fa fa-clock-o" aria-hidden="true"></i> <b>Time:</b> `r paste(" ",params$time)`</li>
 <li><i class="fa fa-arrow-up" aria-hidden="true"></i> <b>Last Updated:</b> `r paste(" ",format(Sys.Date(), "%B %d, %Y"))`</li>
-<li><i class='fa fa-download' aria-hidden='true'></i><a href='syllabus.pdf'> Download syllabus (pdf)</a></li>
 </ul>
 
 *****
