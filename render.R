@@ -6,7 +6,7 @@ setwd("~/Dropbox (Personal)/Mills/Mills Website/")
 render_site()
 
 #Creates a PDF of the syllabus
-rmarkdown::render("syllabus.Rmd", "pdf_document",output_file="./_site/syllabus.pdf")
+rmarkdown::render("syllabus.Rmd", "pdf_document",output_file="./_site/pdfs/syllabus.pdf")
 
 #Inserts a download link to the PDF syllabus
 conn<-file("./_site/syllabus.html")
