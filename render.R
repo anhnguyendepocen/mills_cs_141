@@ -9,7 +9,7 @@ render_site()
 rmarkdown::render("syllabus.Rmd", "pdf_document",output_file="./_site/syllabus.pdf")
 
 #Inserts a download link to the PDF syllabus
-conn<-file("./_site/pdfs/syllabus.html")
+conn<-file("./_site/syllabus.html")
 text <- readLines(conn)
 close(conn)
 insert_position <- which(stringr::str_detect(text, ".*Last Updated.*")) + 1
