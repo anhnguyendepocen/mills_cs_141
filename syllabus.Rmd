@@ -6,7 +6,6 @@ params:
    time: "MW: 6-8 PM"
    oh: "CPM 105 - M: 5PM, W: 3PM"
    instructor: Matthew Pancia
-output: pdf_document
 linkcolor: red
 urlcolor: red
 ---
