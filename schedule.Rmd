@@ -1,5 +1,35 @@
 ---
 title: "CS 141 Schedule"
 ---
+```{r, include=FALSE}
+library(printr)
+library(dplyr)
+library(googlesheets)
+library(pander)
+library(purrr)
+generate_chunk <- function(week, raw_table){
+  processed_table <- raw_table %>% 
+    rename("Date" = date, 
+           "Class Description" = class_description,
+           "Assigned Reading" = assigned_reading,
+           "Assigned Homework" = assigned_homework)
+  pandoc.header(paste("Week", week, "Schedule"), level = 3)
+  emphasize.strong.cols(1)
+  pandoc.table(processed_table)
+}
+```
+
+```{r, include=FALSE}
+sched <- gs_title('Schedule')
+sheets <- gs_ws_ls(sched)
+loaded_sheets <- lapply(sheets, function(x) gs_read(ss=sched, ws = x))
+```
 
 This is the schedule for the course.
+
+```{r, echo=FALSE, results='asis'}
+for(i in seq_along(loaded_sheets)){
+ generate_chunk(i, loaded_sheets[[i]]) 
+}
+```
+

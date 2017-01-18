@@ -4,6 +4,7 @@ params:
    email: mpancia@mills.edu
    room: "Chem/Physics/Math - Room 206"
    time: "MW: 6-8 PM"
+   oh: "CPM 105 - M: 5PM, W: 3PM"
    instructor: Matthew Pancia
 ---
 *****
@@ -19,6 +20,7 @@ list-style-type: none;
 
 <ul class="courseinfo">
 <li><i class="fa fa-child" aria-hidden="true"></i>  <b>Instructor:</b> `r paste(" ",params$instructor)`</li>
+<li><i class="fa fa-building" aria-hidden="true"></i> <b>Office Hours (tentative):</b> `r paste(" ",params$oh)`</li>
 <li><i class="fa fa-envelope-o" aria-hidden="true"></i> <b>Email:</b> `r paste(" ",params$email)`</li>
 <li><i class="fa fa-home" aria-hidden="true"></i> <b>Location:</b> `r paste(" ",params$room)`</li>
 <li><i class="fa fa-clock-o" aria-hidden="true"></i> <b>Time:</b> `r paste(" ",params$time)`</li>
@@ -82,11 +84,11 @@ There will be 3 exams, two of which are to be administered **during class time**
 ### Exam Times
 The dates and times for the exams are as follows:
 
-| Exam Type | Date | Time |
-| --- | --- | --- | 
-| Midterm \#1 | | | 
-| Midterm \#2 | | | 
-| Final Exam | | | 
+| Exam Type | Date | Time | Room | 
+| --- | --- | --- | --- |  
+| 1 Hour Exam \#1 | 3/01/2017 | 6:00PM | CPM 206 |  
+| 1 Hour Exam \#2 | 4/12/2017 | 6:00PM | CPM 206 | 
+| 2 Hour Final Exam | 5/08/2017 | 6:00PM | TBD | 
 
 ### Make-up Policy
 Make-up exams will generally not be given, but requests for make-up exams due to special circumstances will be evaluated on a case-by-case basis. 
@@ -103,12 +105,12 @@ This class will involve the completion of a course project that allows you to ex
 
 The course will be graded using the following weightings:
 
-* Attendance: 5\%
-* Homework: 35\%
-* Exams: 45\% total
-    + 10\% for each midterm exam;
-    + 20\% for the final exam
-* Course Project: 20\%
+* **Attendance**: 5\%
+* **Homework**: 35\%
+* **Exams**: 40\% total
+    + 10\% for each 1 hour exam
+    + 20\% for the 2 hour final exam
+* **Course Project**: 20\%
 
 *******
 
