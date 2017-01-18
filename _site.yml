@@ -13,7 +13,7 @@ navbar:
       icon: fa-clock-o
     - text: "Resources"
       href: resources.html
-      icon: fa-info
+      icon: fa-book
 output:
   html_document:
     theme: sandstone
