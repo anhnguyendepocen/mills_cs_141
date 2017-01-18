@@ -7,7 +7,7 @@ render_site()
 
 #Creates a PDF of the syllabus
 dir.create("./_site/pdfs/")
-rmarkdown::render("syllabus.Rmd", "pdf_document",output_file="./_site/pdfs/syllabus.pdf", output_options = list(linkcolor = "blue"))
+rmarkdown::render("syllabus.Rmd", "pdf_document",output_file="./_site/pdfs/syllabus.pdf")
 
 #Inserts a download link to the PDF syllabus
 conn<-file("./_site/syllabus.html")
