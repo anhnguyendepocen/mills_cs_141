@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Machine Learning Lecture 1</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Matthew Pancia" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Machine Learning Lecture 1
+## Introduction to Machine Learning
+### Matthew Pancia
+### 1/18/2017
+
+---
+
+
+
+
+# What is Machine Learning?
+
+From the name, you might guess two things:
+- Getting machines to learn stuff?
+- Learning stuff from machines?
+
+--
+
+## **Definition:**
+
+- **Machine learning** is about getting machines
+to **learn** to perform **tasks** while learning from **experience**.
+
+--
+
+- **Example**:
+  - Task: Recognize handwritten digits.
+  - Learning: Increased accuracy over time.
+  - Experience: Seeing more handwritten digits.
+
+--
+- **More**?
+
+---
+
+# Why is this necessary?
+
+## Thought Experiment
+Before we go on, let's get a sense for why we might need to have this type of learning.
+
+Try and imagine some tasks that you are pretty good at.
+
+Now try and imagine the process of trying to program a computer to perform this task.
+
+--
+
+## Joke Recognition
+- Understanding when something is a joke.
+  - First, get a computer to learn how to understand English.
+  - Uh...Nevermind that. I'll program in a bunch of rules.
+  - Okay, add in a rule that says if "Knock Knock" appears, it's a joke. Unless someone is talking about a door, I guess...
+  - Get a computer to understand when someone is talking about a door...
+
+
+---
+
+# Summary:
+
+- Some tasks are **really hard** to program algorithmically, even if humans can do them.
+  - Recognizing and classifying images;
+  - Understanding the sentiment of text or speech;
+  - Playing games;
+  - Operating machinery;
+  - Giving recommendations to people.
+
+--
+- These are all things that humans can be trained to do well, but **not even experts** can easily describe a set of rules to perform these tasks.
+
+---
+## A Brief History of Machine Learning
+
+- **&lt; 1950:** People invent statistics.
+- **1950:** Alan Turing invents the Turing Machine. Now we have Computer Science.
+- **1952:** Arthur Samuel invents a checkers machine. This beats everyone.
+- **1957:** Frank Rosenblatt describes the first neural network, the **Perceptron**. People are excited.
+- **1969:** Minksy/Papert publish a pessimistic book about neural networks. People are bummed.
+- **1970s-1980s:** Computers get much better, people invent synthesizers.
+- **1989:** Neural networks are used for handwriting recognition of zip codes. People are no longer bummed.
+
+---
+## A Brief History of Machine Learning (II): Rapid Progress
+
+- **1997:** Deep Blue beats Gary Kasparov at chess. Gary is bummed.
+- **2006:** Geoff Hinton coins the term 'Deep Learning'.
+- **2012:** Google Brain recognizes YouTube cats. Cats are indifferent.
+- **2014:** DeepFace learns to recognize faces as well as humans. Facebook researchers regret their naming.
+- **2015:** Google's AlphaGo beats a professional Go player.
+- **2016:** Uber lets self-driving cars loose in Pittsburgh. Taxi drivers are not jazzed.
+
+---
+## Self-driving cars
+
+![Google Car](googlecar.jpg)
+
+---
+## Image recognition and search
+
+![Sad Dog](sad_dog.png)
+
+---
+## Product/Media/News recommendations
+![Netflix](netflix.png)
+---
+![Facebook](facebook.png)
+
+---
+## Art?
+
+![Deep Trump](deeptrump.jpg)
+
+---
+
+## Terminology
+
+Some introductory terminology.
+
+--
+* A **feature space** is a (generally) finite-dimensional vector space `\(X\)` with a choice of basis, and our **sample data** will consist of samples from `\(X\)`. A **feature** is a name for one of the dimensions (components) of `\(X\)`. 
+<div id="htmlwidget-40dabb0d4eb6470283bc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-40dabb0d4eb6470283bc">{"x":{"filter":"none","data":[["1","2","3","4","5"],[1,0,0,1,1],[7,100,185,3,0.1],[4,4,2,4,4],[10,6,73,0.8,0.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>has_fur\u003c/th>\n      <th>weight_lbs\u003c/th>\n      <th>num_legs\u003c/th>\n      <th>age_years\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+Here, `\(X\)` is the 4-dimensional vector space `\(\mathbb{R}^4\)`, with dimensions corresponding to the features `has_fur, weight_lbs, num_legs, age_years`. The first row is encoded as the 4-dimensional vector in `\((1,7,4,10)\)`.
+
+
+---
+<div id="htmlwidget-b9869a191df5a2b5a714" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b9869a191df5a2b5a714">{"x":{"filter":"none","data":[["1","2","3","4","5"],[1,0,0,1,1],[7,100,185,3,0.1],[4,4,2,4,4],[10,6,73,0.8,0.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>has_fur\u003c/th>\n      <th>weight_lbs\u003c/th>\n      <th>num_legs\u003c/th>\n      <th>age_years\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+**Training data** is a collection of expected output for the task being performed. For example, if we know the species of all of rows in the previous data, this is training data for a task that serves to identify species of animals based on the features `has_fur, weight_lbs, num_legs, age_years`.
+
+---
+### A Taxonomy of ML
+
+One way of organizing ML is by the *task* that we are trying to perform. The most common ones are:
+
+---
+### Regression
+**Task**: Predict a *continuous* output.
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```
+## Warning in rnorm(100, mean = 0, sd = 5): '.Random.seed' is not an integer
+## vector but of type 'NULL', so ignored
+```
+
+![](Lecture1_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+### Regression
+**Task**: Predict a *continuous* output.
+![](Lecture1_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+### Classification
+**Task**: Predict a *discrete* output.
+
+* Have two or more classes.
+* Interested in assigning membership of classes to data points.
+
+<div id="htmlwidget-5c66b5b0d68dbdfb7fbf" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5c66b5b0d68dbdfb7fbf">{"x":{"filter":"none","data":[["1","2","3","4","5"],[true,false,false,true,true],[7,100,185,3,0.1],["Mittens","Emperor Dogworth","Joe Biden","Garfield","Mighty Mouse"],[4,4,2,4,4],[10,6,73,0.8,0.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>has_fur\u003c/th>\n      <th>weight_lbs\u003c/th>\n      <th>name\u003c/th>\n      <th>num_legs\u003c/th>\n      <th>age_years\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+### Clustering
+**Task**: Generate a *discrete* output, potentially without knowing the number of outputs, while preserving some notion of similarity.
+
+```
+## 
+## Attaching package: 'MASS'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     select
+```
+
+![](Lecture1_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+
+### Clustering
+**Task**: Generate a *discrete* output, potentially without knowing the number of outputs, while preserving some notion of similarity.
+![](Lecture1_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+### Ranking
+**Task**: Given a subset of things, put them in an order the reflects some notion of "goodness". 
+
+| movie | indie | strong_female_lead | bruce_willis | duckie |  rank | 
+| --- | --- |--- | --- |---| ---| 
+| Die Hard | 0 | 0 | 1 | 0 | 2 | 
+| Juno | 1 | 1 | 0 | 0 | 3 | 
+| Pulp Fiction | 0 | 1 | 1  | 0 | 1 | 
+| Armageddon | 0 | 0 | 1 | 0 | 4 |
+| Pretty In Pink | 0 | 1 | 0 | 1 | 5| 
+
+---
+### Dimensionality Reduction
+
+**Task**: Given some data points that live in a high-dimensional space, put them in a lower-dimensional space while preserving some of their higher-dimensional properties.
+
+| original | transformed |
+| --- | --- | 
+| Cats are my best friends. | |
+| Dogs are really cool. | |
+| I hate lizards. | |
+| What's the deal with giraffes? | |
+| You should feed animals a good diet. | |
+| Dogs eat twice a day. | |
+
+---
+
+### Dimensionality Reduction
+
+**Task**: Given some data points that live in a high-dimensional space, put them in a lower-dimensional space while preserving some of their higher-dimensional properties.
+
+| original | transformed |
+| --- | --- | 
+| Cats are my best friends. | {mammal, cat, positive} |
+| Dogs are really cool. | {mammal, dog, positive |
+| I hate lizards. | {amphibian, negative}|
+| What's the deal with giraffes? |{mammal, giraffe}  |
+| You should feed animals a good diet. | {diet}  |
+| Dogs eat twice a day. | {diet, dog} |
+
+---
+
+### Density Estimation
+**Task**: Given some data points, estimate the probability distribution of points or a random variable over the data points. 
+![](Lecture1_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+---
+### Density Estimation
+**Task**: Given some data points, estimate the probability distribution of points or a random variable over the data points. 
+![](Lecture1_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
+Unsupervised Learning - Patterns Without Labels
+![](Lecture1_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+---
+
+![](Lecture1_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+Supervised Learning - Patterns With Labels
+![](Lecture1_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+
+![](Lecture1_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+---
+Semi-Supervised Learning - Patterns With Some Labels
+
+![](Lecture1_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+---
+
+![](Lecture1_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+---
+## An Alternate View: Function Approximation
+
+Another way of looking of this is that we are trying to **approximate functions**. 
+
+Let `\(X\)` be a feature space. Then we can generally think of machine learning as trying to use get a machine to approximate some function `\(f: X \rightarrow Y\)`.
+
+--
+### Alternate Definition
+
+**Machine learning** is the use of computer algorithms to approximate functions `\(f: X \rightarrow Y\)` from feature spaces to output spaces in such a way that the quality of the approximation increases as we know more about the expected behavior of `\(f\)` (output values, functional form, etc.). 
+
+---
+We then have a dictionary:
+
+| Original Definition | Functional Definition |
+| --- | --- |  
+| Task | Evaluating `\(f\)` on input values. |
+| Machine | A process for figuring out what `\(f\)` is. | 
+| Experience | Known values of `\(f\)`, information about the form of `\(f\)`, constraints on `\(f\)` |  
+
+| Learning Type | Functional Property |
+| --- | --- | 
+| Unsupervised learning | Values of `\(f\)` are not known |
+| Supervised learning | Values of `\(f\)` are known | 
+| Semi-supervised learning | Some values of `\(f\)` are known, used to inform the final form of `\(f\)` | 
+| Reinforcement learning | Machine is allowed to have assessments of the quality of its current version of `\(f\)` | 
+
+---
+### Examples
+
+* **Regression**: Trying to estimate a function `\(f: X \rightarrow \mathbb{R}\)`. We know some samples of `\(f\)`.
+* **Classification**: Trying to estimate a function `\(f: X \rightarrow\)` {set of labels}. We know what the labels are, as well as samples of `\(f\)`.
+* **Clustering**: Trying to estimate a function `\(f: X \rightarrow\)` {set of cluster labels}. We don't (always) know how many clusters, and we do not have samples of `\(f\)`.
+* **Ranking**: Trying to estimate a function `\(f:\)` {Subsets of `\(X\)`} `\(\rightarrow \mathbb{N}\)`. We know examples of total or partial rankings.
+* **Dimensionaltiy Reduction**: Trying to estimate a function `\(f: X \rightarrow Y\)`, where `\(Y\)` is lower-dimensional than `\(X\)` and `\(f\)` preserves some property that points in `\(X\)` have. 
+* **Density Estimation**: Trying to estimate the probability density of a random variable on `\(X\)`. 
+
+---
+### Questions
+
+## What type of function is `\(f\)` allowed to be?
+
+For a regression problem, we might restrict the family of functions that `\(f\)` is allowed to come from:
+
+- linear regression requires that `\(f\)` be a linear function on `\(X\)`
+- polynomial regression allows for `\(f\)` to be a polynomial function of `\(X\)`
+- regression trees allow for arbitrarily complicated functions on `\(f\)`
+ 
+--- 
+
+### Do we know some values of `\(f\)`? How many?
+
+- Regression: know values of `\(f\)`
+- Clustering: don't know `\(f\)` or number of clusters
+- Ranking: know examples of rankings or partial rankings 
+- Semi-supervised clustering: know a few values of `\(f\)`, but nothing else
+
+--- 
+
+### Do we know some properties that `\(f\)` ought to satisfy?
+
+- We might know in advance that `\(f\)` is a linear function
+- We might know that the values of `\(f\)` are always positive
+- We might have a notion of similarity on `\(X\)` that we want to preserve (reflected in clustering or in dimensionality reduction)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

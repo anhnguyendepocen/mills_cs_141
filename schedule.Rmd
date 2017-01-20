@@ -7,15 +7,25 @@ library(dplyr)
 library(googlesheets)
 library(pander)
 library(purrr)
+
+generate_link <- function(link_string){
+  link_info = stringr::str_split(link_string, ",")[[1]]
+  if(length(link_info) == 2){
+    pandoc.link.return(url= link_info[[1]], text = link_info[[2]])
+  }
+}
+
 generate_chunk <- function(week, raw_table){
-  processed_table <- raw_table %>% 
-    rename("Date" = date, 
+  processed_table <- raw_table %>%
+    dplyr::select(- materials) %>%
+    dplyr::rename("Date" = date, 
            "Class Description" = class_description,
            "Assigned Reading" = assigned_reading,
            "Assigned Homework" = assigned_homework)
   pandoc.header(paste("Week", week, "Schedule"), level = 3)
   emphasize.strong.cols(1)
-  pandoc.table(processed_table)
+  cat(pandoc.table(processed_table))
+  cat(paste(sapply(raw_table$materials, generate_link) %>% purrr::discard(is.null), sep = "\n"))
 }
 ```
 
@@ -30,6 +40,8 @@ This is the schedule for the course.
 ```{r, echo=FALSE, results='asis'}
 for(i in seq_along(loaded_sheets)){
  generate_chunk(i, loaded_sheets[[i]]) 
+ cat("\n")
+ cat(pandoc.horizontal.rule())
 }
 ```
 
