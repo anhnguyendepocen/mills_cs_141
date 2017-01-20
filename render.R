@@ -18,7 +18,13 @@ d_link <- "<li><i class='fa fa-download' aria-hidden='true'></i><a href='pdfs/sy
 text_new <- c(text[1:insert_position],d_link,text[(insert_position+1):length(text)])
 write(text_new, file = "./_site/syllabus.html")
 
-#Render Homework
+#Render homework
+homework_dir <- "./homework/"
+homework_files <- list.files(path=homework_dir, pattern = ".Rmd")
+sapply(homework_files, function(file) rmarkdown::render(file.path(homework_dir, file), output_format = "pdf_document"))
+target_homework_directory <- "./_site/homework/"
+dir.create(target_homework_directory)
+system(paste("cp -r", homework_dir, target_homework_directory)) 
 
 #Move resources to resources folder
 source_directory <- "./resources/"
