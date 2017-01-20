@@ -1,0 +1,84 @@
+---
+title: "Homework 1 - Due 1/25/2017"
+author: "Matthew Pancia"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+## Introduction
+Throughout the semester, you are going to be assigned both theoretical and computational exercises. 
+It is not really possible to hand-write some of the computational exercises that you will be required to do (much less draw plots, etc.), and so 
+we are going to require that the homeworks be generated electronically.
+
+The best way to do this, given that we will be working in R, is to use [RMarkdown](http://rmarkdown.rstudio.com/). This is an augmentation of the extremely simple markup language [markdown](https://daringfireball.net/projects/markdown/) with features that allow you to render R code and LaTeX. RStudio includes an augmented version of RMarkdown documents that behave very similarly to Jupyter notebooks, allowing you to explore data interactively but also to produce nice, well-formatted documents. These are called [R Notebooks](http://rmarkdown.rstudio.com/r_notebooks.html).
+
+## Part 1: R Notebook Basics
+
+* Download and install [R](https://www.r-project.org/).
+* Download and install [RStudio](https://www.rstudio.com/).
+
+* Open RStudio and make a new R Notebook file. You can do this by going to `File -> New File -> R Notebook`. 
+* Read the Markdown Quick Reference found in the `Help` menu to get a sense of how to use Markdown.
+* Read the [Rstudio R Notebook Guide](http://rmarkdown.rstudio.com/r_notebooks.html) to get a sense of how to use R notebooks.
+* Play around with some text writing. You can render your file by using the `Knit` button found in the RStudio IDE above the source window. 
+
+## Part 2: LaTeX Basics
+
+In order to write out the theoretical exercises in an electronic format, it will be useful to learn how to use the basics of LaTeX. LaTeX is a general typsetting language that can produce very nice documents, but you will only need to know the subset of the language that lets you render mathematical equations, like
+
+$$ \left(\int_0^1 f(x) dx\right) \times \left(\frac{1}{n^{100}}\right)$$
+
+See? Isn't that nice?
+
+LaTeX equations can be rendered directly in RMarkdown by enclosing equations in `$` for inline equations or `$$` for rendering the equations in separate paragraphs.
+
+* Check out this [cheat sheet](http://users.dickinson.edu/~richesod/latex/latexcheatsheet.pdf) for the basics of LaTeX. 
+* Try and render some equations.
+
+## Part 3: R Basics
+
+Read up on [this](https://grunwaldlab.github.io/Population_Genetics_in_R/Intro_to_R.html) real-quick-intro to using R.
+
+R code chunks can be rendered in RMarkdown as follows:
+
+    `r ''````{r} 
+    print("Hi there!")
+    ```
+When rendering an RMarkdown document, R variables and functions will be preserved across subsequent chunks (the R chunks are executed in order), so you can have chunks that reference variables that are defined in previous chunks. 
+
+## Part 4: Assignment
+
+There will be two problems in this assignment. The requirements are as follows:
+
+1. Save this as "homework_1_[NAME]_[ID]", where `NAME` is of the following form: `matthew_pancia` (lowercase underscore concatenation of your first and last name). My file would look like `homework_1_matthew_pancia_B1923912.Rmd`. The title should be `CS 141: Homework 1`, and you should include an `author` field in the YAML header that gives your name and ID. Mine looks like:
+
+```
+---
+title: "CS 141: Homework 1"
+author: "Matthew Pancia - B19239192"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+```
+2. Follow the [R Style Guide](http://adv-r.had.co.nz/Style.html) found here.
+3. Do the problems.
+4. Submit both the `Rmd` file and the result of knitting the document to PDF. You can use the `Knit` button in the IDE and click on `Knit to PDF`. 
+
+### Problem 1:
+
+Baby Gauss is famous for frustrating his kindergarten teacher by quickly deriving the formula for the sum of the numbers from 1 to $n$: $$\sum_{i=1}^n i = \frac{n(n+1)}{2}.$$ 
+Write out an [inductive proof](https://en.wikipedia.org/wiki/Mathematical_induction) of this statement. The solution is an example in the Wikipedia page, which you are welcome to replicate. 
+
+### Problem 2: 
+
+Recall that the [Bubble Sort](https://en.wikipedia.org/wiki/Bubble_sort) is a really bad way of sorting a list of numbers.
+
+Write an implementation of a bubble sort in R, showing the commented code in RMarkdown chunks, and then show some examples of using it. The format should be something like:
+
+```
+[text description of the algorithm]
+[documented R code chunks that implement the algorithm]
+[some examples of your code being ran]
+```
