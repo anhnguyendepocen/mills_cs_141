@@ -4,6 +4,8 @@ author: "Matthew Pancia"
 output:
   pdf_document: default
   html_notebook: default
+linkcolor: red
+urlcolor: red  
 ---
 
 ## Introduction
