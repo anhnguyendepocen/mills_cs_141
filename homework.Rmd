@@ -1,0 +1,53 @@
+---
+title: "Homework Guidelines"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+linkcolor: red
+urlcolor: red
+---
+
+These are the guidelines for submitting homework for CS 141. 
+
+## Format
+
+* All homework must be submitted electronically in pdf format and generated from an `Rmd` file;
+* R code should generally follow [Hadley's R style guide](http://adv-r.had.co.nz/Style.html);
+* Theoretical problems should be written up clearly and concisely, as you would in a math course. This [guide](http://www.artofproblemsolving.com/articles/how-to-write-solution) might help.
+
+## Submission
+
+Homework will be submitted via a Google Drive folder that is shared with the instructor and the grader. For everyone's sanity, it is important that you *follow the naming conventions* exactly. If you do not structure your homework in the following way, you will not receive credit. 
+
+* Create a folder in Google Drive named 
+
+```
+cs_141_s2017_[first_name]_[last_name]_ID
+```
+
+(e.g. `cs_141_s2017_matthew_pancia_B19291`);
+
+* Share that Google Drive folder with `mpancia` and `ekager` @ `mills.edu`;
+* For each homework assignment, create a folder `homework_[n]`. In this folder, you will place your submitted homework. 
+
+  * The main PDF should be named 
+
+```
+homework_[n]_[first_name]_[last_name]_ID.pdf
+```
+
+(e.g. `homework_1_matthew_pancia_B19291.pdf`)
+
+  * The `Rmd` file used to render the PDF should be placed in the same folder with the same naming scheme as the PDF;
+  * Auxillary files should be placed in a `resources` folder within the `homework_[n]` folder;
+  * **Important**: Your homework should be reproducible. Given the `Rmd` file and the contents of `resources`, the grader should be able to Knit the PDF. This means that you should use relative paths when referencing files in `resources`. 
+
+The structure of the resulting folder should be something like:
+```
+├── cs_141_s2017_matthew_pancia_B19291
+    ├── homework_1
+    │   ├── resources
+    │   ├── homework_1_matthew_pancia_B19291.Rmd
+    │   └── homework_1_matthew_pancia_B19291.pdf
+    └── homework_2
+```
