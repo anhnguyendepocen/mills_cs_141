@@ -36,14 +36,14 @@ homework_[n]_[mills_username].pdf
 (e.g. `homework_1_mpancia.pdf`)
 
   * The `Rmd` file used to render the PDF should be placed in the same folder with the same naming scheme as the PDF;
-  * Auxillary files should be placed in a `resources` folder within the `homework_[n]` folder;
-  * **Important**: Your homework should be reproducible. Given the `Rmd` file and the contents of `resources`, the grader should be able to Knit the PDF. This means that you should use relative paths when referencing files in `resources`. 
+  * Auxillary files should be placed in a `homework_[n]_[mills_username]_resources` folder within the `homework_[n]` folder;
+  * **Important**: Your homework should be reproducible. Given the `Rmd` file and the contents of `homework_[n]_[mills_username]_resources`, the grader should be able to Knit the PDF. This means that you should use relative paths when referencing files in `resources`. 
 
 The structure of the resulting folder should be something like:
 ```
 ├── cs_141_s2017_mpancia
     ├── homework_1
-    │   ├── resources
+    │   ├── homework_1_mpancia_resources
     │   ├── homework_1_mpancia.Rmd
     │   └── homework_1_mpancia.pdf
     └── homework_2
