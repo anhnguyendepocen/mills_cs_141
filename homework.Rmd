@@ -19,10 +19,10 @@ Homework will be submitted via a Google Drive folder that is shared with the ins
 * Create a folder in Google Drive named 
 
 ```
-cs_141_s2017_[first_name]_[last_name]_ID
+cs_141_s2017_[mills_username]
 ```
 
-(e.g. `cs_141_s2017_matthew_pancia_B19291`);
+(e.g. `cs_141_s2017_mpancia`);
 
 * Share that Google Drive folder with `mpancia` and `ekager` @ `mills.edu`;
 * For each homework assignment, create a folder `homework_[n]`. In this folder, you will place your submitted homework. 
@@ -30,10 +30,10 @@ cs_141_s2017_[first_name]_[last_name]_ID
   * The main PDF should be named 
 
 ```
-homework_[n]_[first_name]_[last_name]_ID.pdf
+homework_[n]_[mills_username].pdf
 ```
 
-(e.g. `homework_1_matthew_pancia_B19291.pdf`)
+(e.g. `homework_1_mpancia.pdf`)
 
   * The `Rmd` file used to render the PDF should be placed in the same folder with the same naming scheme as the PDF;
   * Auxillary files should be placed in a `resources` folder within the `homework_[n]` folder;
@@ -41,10 +41,10 @@ homework_[n]_[first_name]_[last_name]_ID.pdf
 
 The structure of the resulting folder should be something like:
 ```
-├── cs_141_s2017_matthew_pancia_B19291
+├── cs_141_s2017_mpancia
     ├── homework_1
     │   ├── resources
-    │   ├── homework_1_matthew_pancia_B19291.Rmd
-    │   └── homework_1_matthew_pancia_B19291.pdf
+    │   ├── homework_1_mpancia.Rmd
+    │   └── homework_1_mpancia.pdf
     └── homework_2
 ```
