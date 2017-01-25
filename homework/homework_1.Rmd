@@ -53,7 +53,7 @@ When rendering an RMarkdown document, R variables and functions will be preserve
 
 There will be two problems in this assignment. The requirements are as follows:
 
-1. Save this as "homework_1_[NAME]_[ID]", where `NAME` is of the following form: `matthew_pancia` (lowercase underscore concatenation of your first and last name). My file would look like `homework_1_matthew_pancia_B1923912.Rmd`. The title should be `CS 141: Homework 1`, and you should include an `author` field in the YAML header that gives your name and ID. Mine looks like:
+1. Save this according to the naming guidelines on the course website. The title should be `CS 141: Homework 1`, and you should include an `author` field in the YAML header that gives your name and ID. Mine looks like:
 
 ```
 ---
