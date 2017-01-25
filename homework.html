@@ -232,7 +232,7 @@ $(document).ready(function () {
 <div id="format" class="section level2">
 <h2>Format</h2>
 <ul>
-<li>All homework must be submitted electronically in pdf format and generated from an <code>Rmd</code> file;</li>
+<li>All homework must be submitted electronically in pdf or HTML format and generated from an <code>Rmd</code> file;</li>
 <li>R code should generally follow <a href="http://adv-r.had.co.nz/Style.html">Hadley’s R style guide</a>;</li>
 <li>Theoretical problems should be written up clearly and concisely, as you would in a math course. This <a href="http://www.artofproblemsolving.com/articles/how-to-write-solution">guide</a> might help.</li>
 </ul>
@@ -248,14 +248,14 @@ $(document).ready(function () {
 <ul>
 <li>Share that Google Drive folder with <code>mpancia</code> and <code>ekager</code> @ <code>mills.edu</code>;</li>
 <li><p>For each homework assignment, create a folder <code>homework_[n]</code>. In this folder, you will place your submitted homework.</p></li>
-<li><p>The main PDF should be named</p></li>
+<li><p>The main PDF or HTML should be named</p></li>
 </ul>
-<pre><code>homework_[n]_[mills_username].pdf</code></pre>
+<pre><code>homework_[n]_[mills_username].[pdf/html]</code></pre>
 <p>(e.g. <code>homework_1_mpancia.pdf</code>)</p>
 <ul>
-<li>The <code>Rmd</code> file used to render the PDF should be placed in the same folder with the same naming scheme as the PDF;</li>
+<li>The <code>Rmd</code> file used to render the PDF or HTML should be placed in the same folder with the same naming scheme as the PDF or HTML;</li>
 <li>Auxillary files should be placed in a <code>homework_[n]_[mills_username]_resources</code> folder within the <code>homework_[n]</code> folder;</li>
-<li><strong>Important</strong>: Your homework should be reproducible. Given the <code>Rmd</code> file and the contents of <code>homework_[n]_[mills_username]_resources</code>, the grader should be able to Knit the PDF. This means that you should use relative paths when referencing files in <code>resources</code>.</li>
+<li><strong>Important</strong>: Your homework should be reproducible. Given the <code>Rmd</code> file and the contents of <code>homework_[n]_[mills_username]_resources</code>, the grader should be able to Knit the document. This means that you should use relative paths when referencing files in <code>resources</code>.</li>
 </ul>
 <p>The structure of the resulting folder should be something like:</p>
 <pre><code>├── cs_141_s2017_mpancia
