@@ -8,7 +8,7 @@ These are the guidelines for submitting homework for CS 141.
 
 ## Format
 
-* All homework must be submitted electronically in pdf format and generated from an `Rmd` file;
+* All homework must be submitted electronically in pdf or HTML format and generated from an `Rmd` file;
 * R code should generally follow [Hadley's R style guide](http://adv-r.had.co.nz/Style.html);
 * Theoretical problems should be written up clearly and concisely, as you would in a math course. This [guide](http://www.artofproblemsolving.com/articles/how-to-write-solution) might help.
 
@@ -27,17 +27,17 @@ cs_141_s2017_[mills_username]
 * Share that Google Drive folder with `mpancia` and `ekager` @ `mills.edu`;
 * For each homework assignment, create a folder `homework_[n]`. In this folder, you will place your submitted homework. 
 
-  * The main PDF should be named 
+  * The main PDF or HTML should be named 
 
 ```
-homework_[n]_[mills_username].pdf
+homework_[n]_[mills_username].[pdf/html]
 ```
 
 (e.g. `homework_1_mpancia.pdf`)
 
-  * The `Rmd` file used to render the PDF should be placed in the same folder with the same naming scheme as the PDF;
+  * The `Rmd` file used to render the PDF or HTML should be placed in the same folder with the same naming scheme as the PDF or HTML;
   * Auxillary files should be placed in a `homework_[n]_[mills_username]_resources` folder within the `homework_[n]` folder;
-  * **Important**: Your homework should be reproducible. Given the `Rmd` file and the contents of `homework_[n]_[mills_username]_resources`, the grader should be able to Knit the PDF. This means that you should use relative paths when referencing files in `resources`. 
+  * **Important**: Your homework should be reproducible. Given the `Rmd` file and the contents of `homework_[n]_[mills_username]_resources`, the grader should be able to Knit the document. This means that you should use relative paths when referencing files in `resources`. 
 
 The structure of the resulting folder should be something like:
 ```
