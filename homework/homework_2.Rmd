@@ -1,5 +1,5 @@
 ---
-title: "Homework 2 - Due 1/30/2017"
+title: "Homework 2 - Due 2/1/2017"
 author: "Matthew Pancia"
 output:
   pdf_document: default
