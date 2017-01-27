@@ -3,5 +3,10 @@ title: "Homework 2 - Due 1/30/2017"
 author: "Matthew Pancia"
 output:
   pdf_document: default
-html_notebook: default
+  html_notebook: default
+linkcolor: red
+urlcolor: red  
 ---
+
+1. Do the following course: [Datacamp R course](https://www.datacamp.com/courses/free-introduction-to-r)
+2. Make a PDF that shows that you have completed the course and submit it using the standard format. That is, create a `homework_2` folder in your shared document, and include a pdf of the form `homework_2_username.pdf` in that folder.  
