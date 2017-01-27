@@ -1,0 +1,62 @@
+---
+title: "Lecture 3: Linear Regression (II)"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+library(Ecdat)
+library(ggthemes)
+library(prettydoc)
+data(Housing)
+```
+
+### Last Time:
+
+Recall last class. We defined the **cost function** for linear regression, when we have a training set $\{(x_i, y_i)\}$:
+
+$$J(\bar{f}) = \frac{1}{2} \sum_{j=1}^k (f(j) - \bar{f}(x_j))^2  = \frac{1}{2} \sum_{j=1}^k (y_j - \bar{f}(x_j))^2$$
+
+This is the "ordinary least squares" cost function, which is the standard cost function for linear regression (there are others, which we will discuss). 
+
+Our goal in performing linear regression is to find the (?) linear function $\bar{f}$ which minimizes $J$. 
+
+Because all linear functions $X \rightarrow \mathbb{R}$ can be written as taking a dot product with a fixed vector $\beta$ (and moreover, taking the dot product with a fixed vector defines a linear function), we can think of $J$ as a function 
+$$ J: \mathbb{R}^{m+1} \rightarrow R $$
+that we are trying to minimize over $\mathbb{R}^{m+1}$. 
+
+One way of minimizing functions of this form is to use **gradient descent**, which uses the fact that the gradient of a function $f: \mathbb{R}^m \rightarrow \mathbb{R}$ points in the direction of greatest increase of $f$. Gradient descent starts at a random starting point $x_0$ in $\mathbb{R}^m$ and moves according to the gradient. 
+
+* Set initial value of $x$ to $x_0$.
+* Repeat until convergence:
+    * Calculate the gradient of $f$ at $x$
+    * Set $x$ to be the result of moving a small amount in the opposite direction of the gradient
+
+Gradient descent is guaranteed to converge to a local minimum if the step size $\alpha$ is small enough and we let the algorithm run long enough. We don't know a priori which $\alpha$ is small enough for a given function, however, and there are also many approaches to choosing the step size (it is often chosen to decay as the algorith progresses to avoid "bouncing" around the sides of a local minimum). 
+
+By calculating this for linear regression, we get an update rule:
+$$ \bar{\beta} = \beta - \alpha * (\nabla J)(\beta) $$
+On the component level:
+$$ \bar{\beta}^j = \beta^j -  \alpha * (\frac{\partial}{\partial \beta^j} J)(\beta)$$ 
+
+### *Example*:
+
+Let the training set consist of two points $(0,0), (1,1)$, and let our initial $\beta = (0,0)$. Work out some steps of gradient descent for this. 
+
+### Probabilistic Interpretation
+
+There is also a "generative model" for linear regression, that gives us another way of arriving at the same coefficients. 
+ 
+* Discussion of likelihood 
+* Discussion of MLE 
+
+### Lab
+
+* Get familiar with R basics;
+* Install 538 R package;
+* Get tidyverse;
+* Look at vignette;
+* Get started learning dplyr verbs.
