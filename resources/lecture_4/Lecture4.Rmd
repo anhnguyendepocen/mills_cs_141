@@ -1,0 +1,95 @@
+---
+title: "Lecture 4: Linear Regression: Probabilistic Interpretation"
+output:
+  prettydoc::html_pretty:
+    theme: leonids
+highlight: github
+---
+  
+```{r, include=FALSE}
+library(tidyverse)
+library(ggthemes)
+library(prettydoc)
+```
+
+## Last Time
+
+Recall what we've done last time: 
+
+### Linear regression
+
+We have established the problem of *linear regression*:
+
+* Have an unknown function $f(x): X = \mathbb{R} \rightarrow \mathbb{R}$ that we are seeking to approximate. 
+* We make the assumption that the approximation function ("hypothesis")  $\tilde{f}$ is a linear function, that is 
+
+$$\tilde{f}(x) = \beta \cdot (1, x^1, x^2, \dots, x^m)$$
+for all $x = (x^1, x^2, \dots, x^m) \in X$ and some coefficient vector $\beta \in \mathbb{R}^{m+1}$. 
+* We are given a training set $\{(x_i, y_i = f(x_i))\}$ that we are allowed to use in order to get a sense of what the values of $f(x)$ look like. 
+
+* In order to determine our notion of "best approximation", we introduced the "ordinary least squares" cost function, which is a function $J(\beta): \mathbb{R}^{m+1} \rightarrow \mathbb{R}$ that measures the "cost" or "loss" associated to a given linear function represented by $\beta \in \mathbb{R}^{m+1}$. 
+* By using some calculus, we saw that gradient descent could be applied to finding local minima of $J$, which would allow us to find a "good" $\beta$ hypothesis. 
+
+## Questions
+
+We are now left with some questions, given that we have a potential procedure for finding local minima of the cost function.
+
+1. Is this minimum unique? If we find a $\beta$ that (locally) minimizes $J$, is this unique? Are there other linear hypotheses with equal or lower cost functions (global minima)?
+2. How good of a $\beta$ is it, in terms of the prediction task we are trying to accomplish?
+   * We might want to compare various hypotheses for a given regression task, or across different regression tasks. 
+   * For example, suppose we had a hypothesis that predicted housing price as a function of square footage in homes. How do we know that it is doing a good job independent of it having low loss? It might be the best linear hypothesis, but still bad. How do we know this? 
+   * As another example, we might have hypotheses that predict housing price and cancer tumor size. How do we say that we are generally better at 
+3. Is there a better way of doing this than using gradient descent? 
+
+
+## Answers
+
+1. Sometimes no! In the case where there are *colinear* predictors (features), the global minimum of the cost function is not unique, and so it is definitely the case that the local minima guaranteed by gradient descent are not unique. We'll talk about this colinearity problem later. 
+2. There are many ways of determining "goodness-of-fit", which we will talk about later. These involve: 
+  * Checking how well the hypothesis performs on a "test set", which was not used in the fitting process;
+  * A class of metrics that relate to the probabilistic description of linear regression:
+      * Checking "p-values" for coefficients;
+      * Checking that a "normality assumption" holds;
+  * Checking for outliers in the training set or points that "contributed unduly" to the model
+  * Information-theoretic criteria for measuring goodness-of-fit that tell us "how much information we get from using the model"
+3. Yes! There are ways to get closed-form solutions that just involve matrix algebra. We'll see how to do this shortly. 
+
+## Probability Theory
+
+We are going to address #2 in more detail first, which will allow us to get a sense of how well our regressions are performing. This requires introducing the probabilistic interpretation of linear regression, which requires us to step back and discuss some basic probability theory. 
+
+### Basic Setup
+
+**Definition**: A *probability space* is a set $\Omega$ with a function $p: \{ \text{subsets of } \Omega \rightarrow \mathbb{R}$ that satisfies the following properties:
+
+1. 
+
+### Distributions
+
+#### Density Functions
+
+#### CDFs
+
+
+### Random Variables
+
+**Definition**: A random variable is a 
+
+### The Normal Distribution
+
+The normal distribution is a particularly important (class of) distribution(s), which you almost certainly have seen before. It is often called a "bell curve", and the plot of its density function looks something like:
+
+```{r normal_dist, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+data.frame(x=rnorm(100000)) %>% ggplot(aes(x=x)) + geom_density() + theme_tufte(ticks = FALSE) + geom_vline(xintercept = 0, color="blue") +  geom_vline(xintercept = 1, color="red") + geom_vline(xintercept =-1, color="red") + xlab("") + ylab("") + ggtitle("The Normal Distribution") + annotate(geom ="label", label="+1 sd", x=1, -.05) + annotate(geom ="label", label="-1 sd", x=-1, -.05) + annotate(geom="label", label="mean", x=0,y=-.05)
+```
+
+**Facts**:
+
+1. A normal distribution is determined uniquely by two parameters:
+
+* The **mean** $\mu$, which is the "center" of the density function;
+* The **standard deviation** $\sigma$, which defines the "spread" of the normal distribution. This has the property that about 68% of the mass of the normal distribution lies in the interval $(\mu - \sigma, \mu + \sigma)$ around the mean. 
+
+2. The normal distribution shows up in nature, mostly due to the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem). Roughly speaking, if we sample a large number of observations of some identical natural phenomenon in such a way that the measurements don't depend on one-another, then the average (over many repetitions of this measurement process) will be normally distributed. 
+
+For our purposes, the thing to keep in mind is systematic error associated to a sampling process -- in our regression setup, we might imagine that the training data comes from a "real function $f$" with some associated measurement error. Assuming that repeated measurements of $f(x)$ for a given value of $x$ are indepdendent, we might assume that the errors that we observe in the training set are normally distributed. We'll talk about this more shortly. 
