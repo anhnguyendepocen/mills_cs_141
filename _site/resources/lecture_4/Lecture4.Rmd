@@ -155,7 +155,7 @@ $$ \mathbb{E}(a_1 * S_1 + a_2 * S_2) = \ a_1 \mathbb{E}(S_1) + a_2 \mathbb{E}(S_
 (just think of a normal integral).
 
 2. If $S$ has a density function $s$, then 
-$$\mathbb{E}(S) = \int_{\mathbb{R}} s(x) dx.$$
+$$\mathbb{E}(S) = \int_{\mathbb{R}} s(x) *x \; dx.$$
 
 **Example**: 
 
