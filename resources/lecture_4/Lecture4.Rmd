@@ -94,7 +94,7 @@ $$P(X|Y) = P(X)$$, which means that "$Y$ does not effect the probability of $X$ 
 **Properties:**
 
 * If $X \subseteq Y$, $p(Y|X) = 1$.
-* If $X \subseteq Y$, $p(X|Y) = p(Y) / p(X)$. 
+* If $X \subseteq Y$, $p(X|Y) = p(X) / p(Y)$
 * If $X, Y$ are disjoint (mutually exclusive), then $p(X | Y) = 0$. 
 * $P(X \cap Y) = P(Y)(X|Y) = P(X)(Y|X)$
 
@@ -136,7 +136,7 @@ $$ P_S (a \leq X \leq b) = \int_a^b s(x) dx.$$
 
 We can think of $s(x)$ as being the probability that $S$ falls in a small interval $[x, x+ dx]$.
 
-**Example:** The interval $[0,1]$ is a probability space with the normal notion of volume that is used in $\mathbb{R}$. Then there is a random variable $s(x) = 1$. It is equal to its own probability density. In general, any closed interval $[a,b]$ is a probability space, and the constant function $s(x) = \frac{1}{b-a}$ is its own probability density. 
+
 
 #### Expectations
 
