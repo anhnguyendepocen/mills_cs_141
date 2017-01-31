@@ -94,7 +94,7 @@ $$P(X|Y) = P(X)$$, which means that "$Y$ does not effect the probability of $X$ 
 **Properties:**
 
 * If $X \subseteq Y$, $p(Y|X) = 1$.
-* If $X \subseteq Y$, $p(X|Y) = p(Y) / p(X)$. 
+* If $X \subseteq Y$, $p(X|Y) = p(X) / p(Y)$
 * If $X, Y$ are disjoint (mutually exclusive), then $p(X | Y) = 0$. 
 * $P(X \cap Y) = P(Y)(X|Y) = P(X)(Y|X)$
 
