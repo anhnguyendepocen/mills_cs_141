@@ -2,7 +2,7 @@
 title: "Lecture 3: Linear Regression (II)"
 output:
   prettydoc::html_pretty:
-    theme: architect
+      theme: leonids
     highlight: github
 ---
 

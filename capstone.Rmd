@@ -1,0 +1,59 @@
+---
+title: "Capstone Project"
+linkcolor: red
+urlcolor: red
+---
+
+This is information about the semester-long capstone project that you will be required. This will be a significant portion of your grade.
+
+Guidelines:
+
+* You may work individually or in a group of two. 
+* You must submit a project proposal on _____. 
+* The final probject will be due on ______.
+* The project will be graded based on the rubric found below. 
+
+## Rubric 
+
+### Project Definition 
+
+| Criteria          | Specification                                                                                                                                                |
+|-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Overview          | Provides an understandable, high-level overview of the project. The history of the problem the project is related to and context around prior work is given. |
+| Problem Statement | The problem is clearly-defined and a strategy for solving the problem is laid out.                                                                           |
+| Metrics           | The metrics used to describe the performance of the models used in the project are clearly-defined. They are reasonable, based on the problem.
+
+
+### Analysis
+| Criteria                  | Specification                                                                                                                                                                                                                                                                                                                                          |
+|---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Exploratory Data Analysis | If there is a dataset associated to the problem, there is some initial exploratory data analysis included. Features and relevant statistics are calculated. If there is no data set, a description of the input space and data has been made. Abnormalities or characteristics about the data or input that need to be addressed have been identified. |
+| Exploratory Visualization | A visualization has been provided that summarizes a relevant characteristic or feature to the data, with some discussion.                                                                                                                                                                                                                              |
+| Algorithms and Techniques | All of the algorithms and techniques that are used in the project are thoroughly discussed and justified based on the problem.                                                                                                                                                                                                                         |
+| Benchmark                 | There is a clearly-defined benchmark result or threshhold that provides a comparison of performance of solutions in the project. 
+
+## Methodology
+| Criteria           | Specification                                                                                                                                                                                                                        |
+|--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Data Preprocessing | All preprocessing steps have been clearly documented. Abnormalities or characteristics about the data or input that needed to be addressed have been corrected. If no data preprocessing is necessary, it has been clearly justified |
+| Implementation     | The process for which metrics, algorithms, and techniques were implemented with the given datasets or input data has been thoroughly documented. Complications that occurred during the coding process are discussed.                |
+| Refinement         | The process of improving upon the algorithms and techniques used is clearly documented. Both the initial and final solutions are reported, along with intermediate solutions, if necessary.                                          | 
+
+## Results
+| Criteria         | Specification                                                                                                                                                                                                                             |
+|------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Model Evaluation | The final model’s qualities — such as parameters — are evaluated in detail. Some type of analysis is used to validate the robustness of the model’s solution.                                                                             |
+| Justification    | The final results are compared to the benchmark result or threshold with some type of statistical analysis. Justification is made as to whether the final model and solution is significant enough to have adequately solved the problem. | 
+
+## Conclusion 
+| Criteria      | Specification                                                                                                                                                                                          |
+|---------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Visualization | A visualization has been provided that emphasizes an important quality about the project with thorough discussion. Visual cues are clearly defined.                                                    |
+| Reflection    | Student adequately summarizes the end-to-end problem solution and discusses one or two particular aspects of the project they found interesting or difficult.                                          |
+| Improvement   | Discussion is made as to how one aspect of the implementation could be improved. Potential solutions resulting from these improvements are considered and compared/contrasted to the current solution. | 
+
+## Overall Quality 
+| Criteria      | Specification                                                                                                                                                                                                                                                                                        |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Presentation  | Project report follows a well-organized structure and would be readily understood by its intended audience. Each section is written in a clear, concise and specific manner. Few grammatical and spelling mistakes are present. All resources used to complete the project are cited and referenced. |
+| Functionality | Code is formatted neatly with comments that effectively explain complex implementations. Output produces similar results and solutions as to those discussed in the project.                                                                                                                         | 

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Capstone Project</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CS 141: S2017</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="syllabus.html">
+    <span class="fa fa-info"></span>
+     
+    Syllabus
+  </a>
+</li>
+<li>
+  <a href="schedule.html">
+    <span class="fa fa-clock-o"></span>
+     
+    Schedule
+  </a>
+</li>
+<li>
+  <a href="resources.html">
+    <span class="fa fa-book"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="homework.html">
+    <span class="fa fa-paperclip"></span>
+     
+    Homework Guidelines
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Capstone Project</h1>
+
+</div>
+
+
+<p>This is information about the semester-long capstone project that you will be required. This will be a significant portion of your grade.</p>
+<p>Guidelines:</p>
+<ul>
+<li>You may work individually or in a group of two.</li>
+<li>You must submit a project proposal on _____.</li>
+<li>The project will be graded based on the rubric found below.</li>
+</ul>
+<div id="rubric" class="section level2">
+<h2>Rubric</h2>
+<div id="project-definition" class="section level3">
+<h3>Project Definition</h3>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="88%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Overview</td>
+<td>Provides an understandable, high-level overview of the project. The history of the problem the project is related to and context around prior work is given.</td>
+</tr>
+<tr class="even">
+<td>Problem Statement</td>
+<td>The problem is clearly-defined and a strategy for solving the problem is laid out.</td>
+</tr>
+<tr class="odd">
+<td>Metrics</td>
+<td>The metrics used to describe the performance of the models used in the project are clearly-defined. They are reasonable, based on the problem.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="analysis" class="section level3">
+<h3>Analysis</h3>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="92%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Exploratory Data Analysis</td>
+<td>If there is a dataset associated to the problem, there is some initial exploratory data analysis included. Features and relevant statistics are calculated. If there is no data set, a description of the input space and data has been made. Abnormalities or characteristics about the data or input that need to be addressed have been identified.</td>
+</tr>
+<tr class="even">
+<td>Exploratory Visualization</td>
+<td>A visualization has been provided that summarizes a relevant characteristic or feature to the data, with some discussion.</td>
+</tr>
+<tr class="odd">
+<td>Algorithms and Techniques</td>
+<td>All of the algorithms and techniques that are used in the project are thoroughly discussed and justified based on the problem.</td>
+</tr>
+<tr class="even">
+<td>Benchmark</td>
+<td>There is a clearly-defined benchmark result or threshhold that provides a comparison of performance of solutions in the project.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="methodology" class="section level2">
+<h2>Methodology</h2>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="91%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Data Preprocessing</td>
+<td>All preprocessing steps have been clearly documented. Abnormalities or characteristics about the data or input that needed to be addressed have been corrected. If no data preprocessing is necessary, it has been clearly justified</td>
+</tr>
+<tr class="even">
+<td>Implementation</td>
+<td>The process for which metrics, algorithms, and techniques were implemented with the given datasets or input data has been thoroughly documented. Complications that occurred during the coding process are discussed.</td>
+</tr>
+<tr class="odd">
+<td>Refinement</td>
+<td>The process of improving upon the algorithms and techniques used is clearly documented. Both the initial and final solutions are reported, along with intermediate solutions, if necessary.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="92%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Model Evaluation</td>
+<td>The final model’s qualities — such as parameters — are evaluated in detail. Some type of analysis is used to validate the robustness of the model’s solution.</td>
+</tr>
+<tr class="even">
+<td>Justification</td>
+<td>The final results are compared to the benchmark result or threshold with some type of statistical analysis. Justification is made as to whether the final model and solution is significant enough to have adequately solved the problem.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="92%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Visualization</td>
+<td>A visualization has been provided that emphasizes an important quality about the project with thorough discussion. Visual cues are clearly defined.</td>
+</tr>
+<tr class="even">
+<td>Reflection</td>
+<td>Student adequately summarizes the end-to-end problem solution and discusses one or two particular aspects of the project they found interesting or difficult.</td>
+</tr>
+<tr class="odd">
+<td>Improvement</td>
+<td>Discussion is made as to how one aspect of the implementation could be improved. Potential solutions resulting from these improvements are considered and compared/contrasted to the current solution.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="overall-quality" class="section level2">
+<h2>Overall Quality</h2>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="94%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Presentation</td>
+<td>Project report follows a well-organized structure and would be readily understood by its intended audience. Each section is written in a clear, concise and specific manner. Few grammatical and spelling mistakes are present. All resources used to complete the project are cited and referenced.</td>
+</tr>
+<tr class="even">
+<td>Functionality</td>
+<td>Code is formatted neatly with comments that effectively explain complex implementations. Output produces similar results and solutions as to those discussed in the project.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Copyright &copy; 2017 <a href="http://www.themsp.org">Matthew Pancia.</a></p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
