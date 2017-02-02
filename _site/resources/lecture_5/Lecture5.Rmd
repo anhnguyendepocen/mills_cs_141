@@ -1,0 +1,470 @@
+---
+title: 'Lecture 5: Linear Regression: Regression in R'
+output:
+  pdf_document: default
+  html_notebook: default
+highlight: github
+---
+
+```{r setup}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	include = FALSE
+)
+library(fivethirtyeight)
+library(dplyr)
+library(ggplot2)
+library(printr)
+library(GGally)
+library(magrittr)
+```
+
+## R Basics
+
+Just some basic stuff about R. 
+
+### Loading Packages
+
+The basic unit of adding functionality in R is the `package`. These are installed using the `install.packages` command or using the GUI of RStudio. These will generally come from a central package repository for R packages called [CRAN](https://cran.r-project.org/). 
+
+
+An installed package can be loaded into the present R session (or in an R script) with the `library()` command:
+
+```{r}
+library(MASS)
+```
+
+After a package is loaded, all of the functions included to it are available to use without any qualification. To see the list of functions in a package, type in, e.g.
+
+```
+MASS::
+```
+and hit `Tab`. In RStudio, this will autocomplete to all the functions. 
+
+### Getting Help
+
+Most functions in R have help pages associated to them. You can access this by prefacing a function with `?`, e.g.
+
+```
+?lm
+```
+
+Using `??` will search through all of the help pages that exist in your R installation, including packages that are not loaded. 
+
+In addition, many packages have *vignettes* built in, which are HTML or PDF documents that provide some sort of instruction about how to use some component of the package. Use these! You can use `browseVignettes` to look at them.
+
+### Data Types
+
+The most basic data types in R are: 
+
+* character `r 'cats'`
+* numeric `r .05`
+* integer `r 1`
+* complex `r 1+i`
+* logical (boolean) `r TRUE`
+* factor (categorical) `r factor(sample(0:1, 20, replace=TRUE), labels = c("private", "public"))`
+* NA/NULL `r NA`, `r NULL`
+
+Generally, there is an `is._` boolean-valued function that checks if a given thing is a member of that type:
+
+```{r}
+is.numeric('cats')
+is.character('cats')
+```
+
+In addition, there are generally `as_` functions that convert to other types -- this function may or may not implemented, depending on the type you are trying to convert from/to
+
+```{r}
+as.numeric('cats')
+as.integer(TRUE)
+as.logical(1)
+```
+
+#### Vectors
+
+Vectors hold values *of a single type*. They can be created using the `c` command (concatenate):
+
+```{r}
+c(TRUE,TRUE)
+```
+
+Vectors have types which are the types of their constiuent elements:
+
+```{r}
+is.logical(c(TRUE,TRUE))
+```
+
+Vectors are indexed by position, and you can access them using brackets (using positions that are not defined if you like, you get an `NA`:
+
+```{r}
+vec <- c(1,2,3)
+vec[1]
+vec[2]
+vec[100]
+```
+
+Some usful functions:
+
+```{r}
+length(vec)
+```
+
+#### Lists
+
+Lists are like vectors but can store different types. You can construct them using `list`
+
+```{r}
+mixed <- list('cats', TRUE)
+mixed
+```
+
+
+Accessing elements is a bit different for lists:
+```{r}
+mixed[[1]]
+```
+
+You can also name lists, and then you can access the named components by `$`:
+
+```{r}
+named <- list(cats = c('cats', 'dogs') , whiskers = c(TRUE, FALSE))
+```
+
+```{r}
+named$cats
+```
+
+#### Matrices
+
+Matrices are generally used for storing numeric values in, well, a matrix. You construct them by specifying a vector that goes row-wise or column-wise and telling R how many columns/rows you want. By default, R fills the matrix by column, but you can also do it by row:
+
+```{r}
+matrix(c(1,2,3,4,5,6), nrow=2, ncol=3)
+```
+
+```{r}
+m <- matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow = TRUE)
+m
+```
+
+You can index the rows/columns (slicing) by specifying indices, separating rows and columns with a comma and using a blank as a placeholder for 'all'. To get the first row:
+
+```{r}
+m[1,]
+```
+
+To get the first column:
+```{r}
+m[,1]
+```
+
+To get the first entry:
+
+```{r}
+m[1,1]
+```
+
+You can also specify ranges easily using the `:`, which is shorthand for using the `seq` function:
+
+```{r}
+1:10
+```
+
+These can go in the matrix subsetting. To get the first 2 columns:
+
+```{r}
+m[,1:2]
+```
+
+You can also insert arbitrary index vectors. Getting a random row:
+
+```{r}
+m[sample(1:nrow(m), 1),]
+```
+```{r}
+m[,c(1,3)]
+```
+
+#### Data Frames
+
+A data frame is the basic unit of data storage that you'll encounter in R (and a lot of practical ML in general, given the existence of `pandas` in Python). This is an abstract representation of a spreadsheet, essentially, and consists of a collection of rows of data that have features associated to them, represented by columns. 
+
+This is stored internally as a named list, where the names correspond to the names of the columns and the values in the list are vectors that represent the columns. You can construct them using vectors of their column values:
+
+```{r}
+df <- data.frame(cats = c('woof', 'dog'), dogs = c(TRUE, FALSE))
+df
+```
+
+**NOTE** By default, R will cast string columns to factors. You might not want this, and it is an option in `data.frame`. 
+
+There are some useful methods that can be applied to data frames:
+
+```{r}
+# Note, len(iris) is wrong!
+nrow(iris)
+```
+
+```{r}
+ncol(iris)
+```
+
+```{r}
+summary(iris)
+```
+
+
+```{r}
+head(iris)
+```
+
+```{r}
+tail(iris)
+```
+### Reading Data
+
+Data in R can come from several places. Sometimes it is built in (or in a package), in which case you can source it using `data`, e.g.
+
+```{r}
+data(iris)
+library(MASS)
+data("Boston")
+```
+
+Sometimes it comes in a tabular form, like a [CSV](https://en.wikipedia.org/wiki/Comma-separated_values), in which case you can load it in using the `readr` package (there is a built-in csv reader for R, but `readr` does a better job of it):
+
+```
+df <- readr::read_csv('path/to/my.csv')
+```
+
+`readr` also supports any other delimited format like 
+
+RStudio has a nice button that makes importing data easy for you, it's the `Import Dataset` button, which also lets you import Excel, Stata, etc. 
+
+For other types of data sources, there are generally R packages that support loading them. Google or ask around for help if you encounter them. 
+
+### Pipes
+
+Pipes are an incredibly useful piece of syntactic sugar that comes from the R package [magrittr](https://github.com/tidyverse/magrittr). This introduces an operator `%>%` that does partial function composition:
+
+* `x %>% f is equivalent to f(x)`
+* `%>% f(y) is equivalent to f(x, y)`
+* `%>% f %>% g %>% h is equivalent to h(g(f(x)))`
+
+If the function you want to apply doesn't accept the thing you want to insert as the primary argument, then you can use `.` as a placeholder:
+
+* `x %>% f(y, .) is equivalent to f(y, x)`
+* `x %>% f(y, z = .) is equivalent to f(y, z = x)`
+
+You can also write $\lambda$ functions using braces, which is very nice for not having to explicitly define functions that you won't use repeatedly:
+
+```{r}
+iris %>% 
+  {
+    n <- sample(1:10, size = 1)
+    H <- head(., n)
+    T <- tail(., n)
+    rbind(H, T)
+  } %>%
+  summary
+```
+
+Finally, you can access names of the LHS of an expression using the `%$%` which is primarily useful for extracting the columns of a data frame as vectors:
+
+```{r}
+iris %>% 
+  filter(Sepal.Width >3.2) %$%
+  Sepal.Width
+```
+
+Read the `magrittr` vignette for more details `vignette("magrittr")`, but you should try and use pipes to clean up your code! Don't go overboard, however -- see: [Bob Rudis](https://github.com/hrbrmstr/rstudioconf2017#readme). 
+
+## Fitting Linear Models in R
+
+Producing suitable input data for machine learning algorithms is of crucial importance to doing machine learning. Typically, we have a collection of data that is represented by the rows of a data frame. Below is the classic [iris](https://en.wikipedia.org/wiki/Iris_flower_data_set) data set that is built in to R. This consists of 150 samples of measurements from subspecies of the **Iris* family, with measurements of the sepal and petal length and width (the sepal is the part below the petals):
+
+![petal](http://5047-presscdn.pagely.netdna-cdn.com/wp-content/uploads/2015/04/iris_petal_sepal.png)
+
+```{r load_data}
+data(iris)
+```
+
+Looking at the pairplots with the useful package [GGAlly](http://ggobi.github.io/ggally/):
+
+```{r message=FALSE, warning=FALSE}
+ggpairs(iris, columns = c("Sepal.Width", "Sepal.Length", "Petal.Length", "Petal.Width"), mapping=aes(color=Species), diag = NULL)
+```
+
+We see that it is definitely reasonable to try and predict the petal length from the width (of course these things are related!), but the data looks pretty linear, without even a dependence on the species. So, let's try and fit a linear hypothesis, with our target values being the petal length and the feature space being the 1-dimensional petal width space.
+
+We now need to coerce our data into a training set, now, and to put it in a form that R's linear model function `lm` can understand. The standard way that these things are presented are as *design (or model) matrices*, which have columns that represent the dimensions of the feature space $X$. We provide this design matrix and a vector that stores the target values in the training set, $\{y_i\}$, and the machine learning algorithm should know what to do. 
+
+In this case, we'd want a matrix that looks like 
+
+```{r}
+iris_petal_model_matrix <- iris %>% 
+  dplyr::select(Petal.Width) %>% 
+  as.matrix
+iris_petal_model_matrix %>% head
+```
+
+With a target vector:
+```{r}
+iris_petal_target <- iris$Petal.Length
+```
+
+We can then stick this into the `lm.fit` function (which is in base R and fits linear models):
+
+```{r}
+iris_petal_model <- lm.fit(x = iris_petal_model_matrix, y=iris_petal_target)
+```
+
+`lm.fit` returns a list of useful things (see `?lm.fit`), including the coefficients:
+
+```{r}
+iris_petal_model$coefficients
+```
+
+Which tells us that we expect that the petal length increases by about 2.8 cm for every increase of 1cm in petal length. We can access the predicted values and residuals:
+
+```{r}
+iris_petal_model_fitted_values <- iris_petal_model$fitted.values
+iris_petal_model_residuals <- iris_petal_model$residuals
+```
+
+Let's compare to our original values:
+
+```{r}
+lm_loss <- function(predicted, target){
+  sum((predicted-target)**2)
+}
+lm_loss(iris_petal_model_fitted_values,iris_petal_target) / nrow(iris)
+```
+
+So, the average value of our loss function (for each data point) is .56, which doesn't seem bad. We can also compute the absolute error:
+
+```{r}
+mean(abs(iris_petal_model_fitted_values-iris_petal_target))
+```
+
+Which doesn't seem too bad either. Let's plot:
+
+```{r}
+data.frame(x=iris_petal_model_matrix[,1], 
+           y=iris_petal_target,
+           predicted=iris_petal_model_fitted_values) %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_segment(aes(xend = x, yend = predicted)) +
+  geom_point(alpha=.4) +
+  geom_point(aes(y = predicted), shape = 1, alpha=.4, color="red") +
+  geom_abline(intercept = 0,slope =2.874706 , color="lightgrey") + 
+  geom_smooth(method="lm", se=FALSE, color="purple")+ 
+  theme_classic()
+```
+
+This looks like it could definitely work better if we included the intercept! There was none here. We need to stick that in our old model matrix:
+
+```{r}
+
+model_matrix_with_intercept <- cbind(iris_petal_model_matrix, rep(1,nrow(iris_petal_model_matrix)) %>% as.matrix())
+colnames(model_matrix_with_intercept) <- c("Petal.Width", "Intercept")
+model_matrix_with_intercept %>% head
+```
+
+Let's try again:
+
+```{r echo=TRUE}
+iris_petal_model_intercept <- lm.fit(x = model_matrix_with_intercept, y=iris_petal_target)
+```
+
+```{r echo=TRUE}
+iris_petal_model_intercept$coefficients
+```
+
+```{r echo=TRUE}
+iris_petal_intercept_fitted_values <- iris_petal_model_intercept$fitted.values
+mean(abs(iris_petal_intercept_fitted_values-iris_petal_target))
+```
+
+Much lower!
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+data.frame(x=model_matrix_with_intercept[,1], 
+           y=iris_petal_target,
+           predicted=iris_petal_intercept_fitted_values) %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_segment(aes(xend = x, yend = predicted)) +
+  geom_point(alpha=.4) +
+  geom_point(aes(y = predicted), shape = 1, alpha=.4, color="red") +
+  geom_smooth(method="lm", se=FALSE, color="purple")+ 
+  theme_classic()
+```
+
+## The Formula Interface
+
+As we just saw, it's a bit obnoxious to manually construct the matrices that go into `lm.fit` -- it'd be much better if we could tell R: "construct a design matrix for me from the `iris` dataframe that uses the variable `Petal.Width` to predict `Petal.Length`, including an intercept term". 
+
+This sounds like wishful thinking, but this is exactly what R allows us to do, which makes specifying design matrices much simpler! Here's an example!
+
+```{r}
+model_frame <- model.frame(formula=Petal.Length ~ Petal.Width, data=iris)
+model_frame
+```
+
+`model_frame` is a data frame that has some extra information about the formula that we specified. These are stored in the attributes of the data frame:
+
+```{r}
+attributes(model_frame)
+```
+
+From this, we can use the `model.matrix` function to actually generate the matrix:
+
+```{r}
+model_terms <- attr(x = model_frame, which = "terms")
+model_matrix <- model.matrix(object=model_terms, data=model_frame)
+head(model_matrix)
+```
+
+We could, now, pass this to the `lm.fit` function, but actually, it's even easier than this. The `lm` function will deal with formulas like this for us:
+
+```{r}
+easier_model <- lm(formula = Petal.Length ~ Petal.Width, data = iris)
+easier_model
+```
+
+That's a lot easier, huh? The magic comes from R's understanding of the **formula** `Petal.Length ~ Petal.Width`. There is some notation to these formulas, but they let us specify relationships and transformations very easily. The specification of the syntax of formulae can be found in [the R docs](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/formula.html), but here's a summary:
+
+* Expressions are of the form `y ~ model`, where `y` is the target feature, and `model` consists of a formula constructed from *terms* separated by a `+` operator, where terms can be built out of:
+    * individual features: `Petal.Width`;
+    * functions applied to individual features: `log(Petal.Width)`;
+    * intercepts `-1` or `+0` specifies a model without an intercept, by default it is included
+    * functions applied to multiple features -- these need to be enclosed with `I`: `I(log(Petal.Width + Petal.Length))`
+    * interaction terms: `Petal.Width:Petal.Length`
+    * crossing terms: `x*y` which is equivalent to `x+y+x:y` (generally a good idea to stick in instead of just the interaction term)
+    * crossing terms, exponentiated: `(x+y+z)^2 = (x+y+z)*(x+y+z)`
+* **Note**: The LHS of the expression `y` can also be some expression of target features, e.g. we could try and predict `log(Petal.Width)` if we like. 
+* **Note**: The `-` operator removes a specified term from the formula
+* **Note**: The `.` operator stands for 'all variables not yet mentioned in the formula', so something like `y ~ .` means "use everything except y to predict y". 
+
+## Representing factors/logical values
+
+What happens if we ask the formula interface to predict based on a factor variable or a logical value like `Species`? 
+
+```{r}
+species_model <- lm(Petal.Width ~ Species + Petal.Length , data=iris, model = TRUE)
+species_model
+```
+
+`model.matrix` knows how to deal with things of class `lm`:
+
+```{r}
+model.matrix(species_model)
+```
+
+We see that there are two new features `Speciesversiolor` and `Speciesvirginica` that are either 1 or 0. `Speciesversiolor` is 1 if and only if `Species = versicolor`, and similarly for `Speciesvirginica`. This is called "dummy encoding" for factor feature, and what we do is add in a numeric feature that takes on 1/0 for each possible value of the factor feature that is not the "reference value" (in this case, 'setosa'). 
+
+There are other encoding methods built in to R that are relevant if there are orderings to the factors, see [this](http://www.ats.ucla.edu/stat/r/library/contrast_coding.htm). 
+
+How does this work for linear regression? We see that `species_model` has coefficients for these terms, and the whole setup has an interpretation. 
+
