@@ -37,10 +37,9 @@ Where $\bar{y}$ denotes taking the average.
 
 That returns a named list of:
 
-1. Fitted values (a numeric vector the same length of $x$);
-2. Coefficient estimates (a named vector with names `beta_0`, `beta_1`);
-3. Residual errors (the differences (y - predicted values).
+  * Fitted values (a numeric vector the same length of $x$);
+  * Coefficient estimates (a named vector with names `beta_0`, `beta_1`);
+  * Residual errors (the differences (y - predicted values).
 
 5. Use the `lm` function on the iris data set to verify that your function from 4 produces the same coefficient estimates. 
-
 6. Problem 3.7.14 in *Introduction to Statistical Learning*.
