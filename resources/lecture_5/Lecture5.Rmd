@@ -1,8 +1,8 @@
 ---
 title: 'Lecture 5: Linear Regression: Regression in R'
 output:
-  pdf_document: default
   html_notebook: default
+  pdf_document: default
 highlight: github
 ---
 
@@ -61,7 +61,6 @@ The most basic data types in R are:
 * character `r 'cats'`
 * numeric `r .05`
 * integer `r 1`
-* complex `r 1+i`
 * logical (boolean) `r TRUE`
 * factor (categorical) `r factor(sample(0:1, 20, replace=TRUE), labels = c("private", "public"))`
 * NA/NULL `r NA`, `r NULL`
