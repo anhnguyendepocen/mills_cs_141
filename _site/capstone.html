@@ -211,6 +211,13 @@ $(document).ready(function () {
     Homework Guidelines
   </a>
 </li>
+<li>
+  <a href="capstone.html">
+    <span class="fa fa-cogs"></span>
+     
+    Capstone Project
+  </a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -228,16 +235,50 @@ $(document).ready(function () {
 </div>
 
 
-<p>This is information about the semester-long capstone project that you will be required. This will be a significant portion of your grade.</p>
-<p>Guidelines:</p>
+<p>This is information about the semester-long capstone project that you will be required. This will be a significant portion of your grade. The general idea of the project is to allow you to develop a deeper understanding of a machine learning technique and how to present that to an external audience in a digestable format.</p>
+<div id="guidelines" class="section level2">
+<h2>Guidelines:</h2>
 <ul>
 <li>You may work individually or in a group of two.</li>
-<li>You must submit a project proposal on _____.</li>
-<li>The final probject will be due on ______.</li>
-<li>The project will be graded based on the rubric found below.</li>
+<li>You must submit a project proposal before 4/12/17.</li>
+<li>The final project will be due on 5/3/17.</li>
+<li>The project will be graded based on the rubric found below, with project-specific modifications for parts that are not applicable.</li>
 </ul>
+</div>
+<div id="resources-for-project-ideas-and-sample-projects" class="section level2">
+<h2>Resources For Project Ideas and Sample Projects</h2>
+<p>Here are some resources to help you choose your project and to understand what the final output ought to look like.</p>
+<div id="external-resources" class="section level3">
+<h3>External Resources</h3>
+<p>This type of project is common in machine learning courses, and so there are already a great deal of example projects for you to draw on. Please do not copy any of the ideas here exactly, though I will not expect that all project ideas are completely original – you are welcome to flesh out a variant of one of these projects, provided that you are doing some original work. Please see me if you have concerns about this.</p>
+<ul>
+<li>From CS229 at Stanford:
+<ul>
+<li><a href="http://cs229.stanford.edu/projects2014.html">2013</a></li>
+<li><a href="http://cs229.stanford.edu/projects2014.html">2014</a></li>
+<li><a href="http://cs229.stanford.edu/projects2014.html">2015</a></li>
+<li><a href="http://cs229.stanford.edu/projects2014.html">2016</a></li>
+</ul></li>
+<li>From CMU: <a href="http://www.cs.cmu.edu/~10701/projects.html">Project Ideas</a>;</li>
+<li>A <a href="https://www.quora.com/Machine-Learning-What-are-some-small-project-ideas-to-practice-the-following-ML-algorithms">Quora post</a> on this topic.</li>
+</ul>
+</div>
+<div id="suggestions" class="section level3">
+<h3>Suggestions</h3>
+<p>Here are a collection of random project ideas that I’ve come up with that might be interesting. I’ve got more, so please feel free to chat with me about it.</p>
+<div id="data-journalism" class="section level4">
+<h4>Data Journalism</h4>
+<p>“Data journalism” has become quite a thing over the past few years, starting mostly with the rise of Nate Silver (of <a href="https://fivethirtyeight.com/">538</a> fame) after his success at being a reasonable pundit in the 2008 election. As in science, however, the reproducibility of such data-backed articles is important – being able to verify the conclusions of articles that have their groundings in some sort of data analysis keeps those doing the analysis responsible for not “fudging the numbers”. To this end, many of the data sets underlying 538 articles are now available in their R package, and a project which reproduced and enhanced some of their analyses with some more substantial machine learning would be a good way to learn the presentation/plotting/document generation part of R as well as provide an opportunity to get some writing in.</p>
+</div>
+<div id="gerrymandering" class="section level4">
+<h4>Gerrymandering</h4>
+<p><a href="https://en.wikipedia.org/wiki/Gerrymandering_in_the_United_States">Gerrymandering</a> is the redistricting of congressional districts that is meant to favor a political party or candidate. This is an obvious problem and clearly happens (see this <a href="https://en.wikipedia.org/wiki/Texas&#39;s_35th_congressional_district">insanity</a>). There are a number of statistical techinques that are used to try and determine whether or not a given districting system is “fair”, and indeed a summer school being planned to train mathematicians to be witnesses in court cases on gerrymandering (see <a href="https://sites.tufts.edu/gerrymandr/project/">here</a>). A project around this would be to obtain data that is relevant to identifying gerrymandering, apply some statistical and/or machine learning techniques to understanding the phenomenon, and produce some useful visualizations/reports that describe your findings.</p>
+</div>
+</div>
+</div>
 <div id="rubric" class="section level2">
 <h2>Rubric</h2>
+<p>This is the basic structure of the rubric by which projects will be graded. Depending on the precise structure of your chosen project, however, this may vary, and we will discuss this at the time of the project proposal. For projects that follow a more standard structure of “choose a problem and data set -&gt; choose a machine learning technique to solve that problem -&gt; implement that solution”, however, this will be the complete rubric.</p>
 <div id="project-definition" class="section level3">
 <h3>Project Definition</h3>
 <table>
@@ -300,9 +341,8 @@ $(document).ready(function () {
 </tbody>
 </table>
 </div>
-</div>
-<div id="methodology" class="section level2">
-<h2>Methodology</h2>
+<div id="methodology" class="section level3">
+<h3>Methodology</h3>
 <table>
 <colgroup>
 <col width="8%" />
@@ -330,8 +370,8 @@ $(document).ready(function () {
 </tbody>
 </table>
 </div>
-<div id="results" class="section level2">
-<h2>Results</h2>
+<div id="results" class="section level3">
+<h3>Results</h3>
 <table>
 <colgroup>
 <col width="7%" />
@@ -355,8 +395,8 @@ $(document).ready(function () {
 </tbody>
 </table>
 </div>
-<div id="conclusion" class="section level2">
-<h2>Conclusion</h2>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
 <table>
 <colgroup>
 <col width="7%" />
@@ -384,8 +424,8 @@ $(document).ready(function () {
 </tbody>
 </table>
 </div>
-<div id="overall-quality" class="section level2">
-<h2>Overall Quality</h2>
+<div id="overall-quality" class="section level3">
+<h3>Overall Quality</h3>
 <table>
 <colgroup>
 <col width="5%" />
@@ -408,6 +448,7 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 <p>Copyright &copy; 2017 <a href="http://www.themsp.org">Matthew Pancia.</a></p>

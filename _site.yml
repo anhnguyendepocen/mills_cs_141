@@ -17,6 +17,9 @@ navbar:
     - text: "Homework Guidelines"
       href: homework.html
       icon: fa-paperclip
+    - text: "Capstone Project"
+      href: capstone.html
+      icon: fa-cogs
 output:
   html_document:
     theme: sandstone
