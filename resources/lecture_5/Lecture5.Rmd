@@ -103,7 +103,7 @@ vec[2]
 vec[100]
 ```
 
-Some usful functions:
+Some useful functions:
 
 ```{r}
 length(vec)

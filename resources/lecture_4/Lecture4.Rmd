@@ -187,7 +187,7 @@ We refer to the associated normal distribution as $N(\mu, \sigma)$.
 For our purposes, the thing to keep in mind is systematic error associated to a sampling process -- in our regression setup, we might imagine that the training data comes from a "real function $f$" with some associated measurement error. Assuming that repeated measurements of $f(x)$ for a given value of $x$ are indepdendent, we might assume that the errors that we observe in the training set are normally distributed. We'll talk about this more shortly. 
 
 3. The density function associated to the standard normal distribution $N(0, 1)$ is
-$$ \phi(x) = \frac{e^{-1/2 x}}{\sqrt{2\pi}}$$
+$$ \phi(x) = \frac{e^{-x^2/2}}{\sqrt{2\pi}}$$
 
 The $\sqrt{2\pi}$ factor is a normalization so that the total integral is 1, and the $1/2$ factor in the exponent ensures that the standard deviation is 1. The general normal distribution $N(\mu, \sigma)$ has a density function that is obtained by translating and scaling:
 
