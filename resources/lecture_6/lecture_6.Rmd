@@ -78,6 +78,27 @@ The correlation is always between -1 and 1 (obvious from the angle interpretatio
 
 Because of how the covariance was defined, this measures linear relationships between $X,Y$. 
 
+## Checking Probabilistic Assumptions
+
+Now we are in a position to describe checking some of the assumptions of the regression model. If these assumptions fail, we might need to modify our feature space or use a nonlinear models.
+
+### Heteroscedasticity
+
+One of the assumptions of the regression model was that the normal distribution that the $\epsilon_i$ came from has constant variance $\sigma^2$ for some choice of $\sigma$ (the $N(\mu, \sigma)$ defines the normal distribution in terms of its mean and standard deviation). This might not be true -- the errors might have greater spread for some values than others, and this can be diagnosed by looking at a residual plot. 
+
+```{r}
+hetero_data <- data.frame(x=1:100, y = sapply(1:100, function(x) 3 + 5*x + rnorm(n = 1, sd=.5*x)))
+hetero_model <- lm(y ~ x, data=hetero_data)
+par(mfrow=c(2,2))
+plot(hetero_model)
+```
+
+The residual plot in the upper left corner plots the residuals against the fitted values, with a smoothed line that goes through the mean. If there is no relationship between the variance of the residuals and the fitted values, then the mean should follow the flat line and the "spread" of the residuals should be constant. That is not the case here, and so we might need to correct it. We'll talk about how to do this later.
+
+### Correlation of Residuals
+
+Another assumption was that the residuals were uncorrelated (as they were assumed to be independent). 
+
 ## $R^2$ 
 
 One way of looking at the performance of the linear hypothesis is to calculate the so-called $R^2$ value, which is called the *coefficient of determination*. This is defined as 
@@ -170,6 +191,31 @@ Because polynomials can be made to fit an arbitrary finite set of points, we can
 
 This means that we need a way of comparing many hypotheses for the same task -- if we want to use linear models, we have to choose amongst the possible choices of feature spaces that we input as the training set into the least squares optimization problem. However, because of overfitting, we can't just measure the loss over the training set -- some overcomplicated models will have 0 loss on the training set, and those might fail miserably at generally approximating the function we are interested in approximating.
 
+### Relationship between response and predictors
+
+The first thing we might want to check is if there is *any* relationship between the response variable and the features that we are using to predict. In this case, we think of this as a *hypothesis test*. 
+
+We test the *null hypothesis* $H_0$ that all of the coefficients of $\beta$ are 0 except the intercept. If this were true, then there would be no relationship between any of the features in the feature space and the response variable. 
+
+The converse is the *alternative hypothesis* $H_a$, which is that at least one of the $\beta$ is non-zero. We do this by computing the $F$-statistic:
+
+$$F = \frac{(SS_{tot} - SS_{res})/p}{SS_{res}/(n-p-1)}.$$
+
+It can be shown that if the linear model assumptions are true, then the natural variation due to the $\epsilon_i$ produces some natural variation in the residual sum of squares, whose average value is
+
+$$\mathbb{E}(SS_{res}/(n-p-1)) = \sigma^2$$
+
+and if $H_0$ is true, then 
+
+$$\mathbb{E}((SS_{tot} - SS_{res})/p) = \sigma^2$$
+In this case, the average value of the $F$-statistic ought to be 1, and if we see a value that is very large, then, this is coming from the fact that if $H_a$ is true then 
+
+$$\mathbb{E}((SS_{tot} - SS_{res})/p) > \sigma^2.$$
+
+In general, it can be shown that the $F$-statistic actually follows an $F$-distribution ([see](https://en.wikipedia.org/wiki/F-distribution)) under $H_0$, and we can therefore calculate the probability that $F$ is at least as large as we observe under $H_0$. If this is small, then we would reject the null hypothesis. 
+
+Here we were testing the hypothesis that all of the coefficients were zero, but we can test whether or not *a subset* of the coefficients are zero using a modified $F$-statistic. 
+
 ### Test Sets
 
 One thing to do is to check the performance of the hypothesis on data that was not used to fit the model. This is really what we're after -- we're not so interested in the values of our hypothesis on the training set, per se, but we are interested in using the hypothesis to predict values of the underlying approximated function on *new data*. 
@@ -183,6 +229,5 @@ Unfortunately, we are not usually given a separate testing set, and so we are fo
 * there is a small error on the training set
 * there are large errors on a large, representative test set
 * a less flexible (less complicated) model can exhibit better error on the test set.
-
 
 

@@ -29,7 +29,7 @@ Where $\bar{y}$ denotes taking the average.
 4. Using the formula from 3, write a function that performs linear regression for 1-dimensional feature spaces. This should be a function 
 
 ```
-1_dim_lm <- function(x, y){
+one_dim_lm <- function(x, y){
 ...
 }
 
