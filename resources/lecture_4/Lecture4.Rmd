@@ -230,22 +230,22 @@ $p(\epsilon_i) = \frac{e^{-\frac{\epsilon_i^2}{2\sigma^2} }}{\sqrt{\left(2\sigma
 
 Because we assumed that $y_i = \beta \cdot x_i + \epsilon_i$, we can write $y_i - \beta \cdot x_i = \epsilon_i$, so this becomes 
 
-$$p(y_i | x_i, \beta) = \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}$$
+$$p(\epsilon_i) = \frac{e^{-\frac{\epsilon_i^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}$$
 
 which we think of as a function of $\beta$.
 
 Because all of the $\epsilon_i$ are assumed to be independent of one-another, we can write the probability (or *likelihood*) of observing the training set (given $\beta$) as 
 $$
-L(\beta) := P(y_i, x_i, \beta) = \prod_i p(y_i | x_i, \beta) = \prod_i \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}
+l(\beta) := \prod_i p(y_i; \beta) = \prod_i \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}
 $$
 
 This leads us to the idea of instead finding the $\beta$ that **maximizes** the likelihood, or looking for 
 
-$$\tilde{\beta} = \textrm{argmax}_\beta \left(L(\beta)\right)$$.
+$$\tilde{\beta} = \textrm{argmax}_\beta \left(l(\beta)\right)$$.
 
 Because the logarithm is a monotonic function, we can also maximize the *log-likelihood*, which turns the product into a nice sum and kills the exponent:
 
-$$ \log(L(\beta)) = - c *\sum_i \frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} $$
+$$ \log(l(\beta)) = - c *\sum_i \frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} $$
 The constants are independent of $\beta$, so maximizing this is the same as maximizing 
 
 $$\sum_i -  (y_i - \beta \cdot x_i)^2$$

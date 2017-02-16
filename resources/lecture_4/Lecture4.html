@@ -197,7 +197,7 @@ S(T) = 50
 </ol>
 <p>For our purposes, the thing to keep in mind is systematic error associated to a sampling process – in our regression setup, we might imagine that the training data comes from a “real function <span class="math inline">\(f\)</span>” with some associated measurement error. Assuming that repeated measurements of <span class="math inline">\(f(x)\)</span> for a given value of <span class="math inline">\(x\)</span> are indepdendent, we might assume that the errors that we observe in the training set are normally distributed. We’ll talk about this more shortly.</p>
 <ol start="3" style="list-style-type: decimal">
-<li>The density function associated to the standard normal distribution <span class="math inline">\(N(0, 1)\)</span> is <span class="math display">\[ \phi(x) = \frac{e^{-1/2 x}}{\sqrt{2\pi}}\]</span></li>
+<li>The density function associated to the standard normal distribution <span class="math inline">\(N(0, 1)\)</span> is <span class="math display">\[ \phi(x) = \frac{e^{-x^2/2}}{\sqrt{2\pi}}\]</span></li>
 </ol>
 <p>The <span class="math inline">\(\sqrt{2\pi}\)</span> factor is a normalization so that the total integral is 1, and the <span class="math inline">\(1/2\)</span> factor in the exponent ensures that the standard deviation is 1. The general normal distribution <span class="math inline">\(N(\mu, \sigma)\)</span> has a density function that is obtained by translating and scaling:</p>
 <p><span class="math display">\[ \phi_{\mu, \sigma} = \frac{1}{\sigma} \phi\left(\frac{x-\mu}{\sigma}\right).\]</span></p>
@@ -226,15 +226,15 @@ S(T) = 50
 <p>Remember, we assumed that the <span class="math inline">\(\epsilon_i\)</span> are distributed as a normal distribution:</p>
 <p><span class="math inline">\(p(\epsilon_i) = \frac{e^{-\frac{\epsilon_i^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}\)</span></p>
 <p>Because we assumed that <span class="math inline">\(y_i = \beta \cdot x_i + \epsilon_i\)</span>, we can write <span class="math inline">\(y_i - \beta \cdot x_i = \epsilon_i\)</span>, so this becomes</p>
-<p><span class="math display">\[p(y_i | x_i, \beta) = \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}\]</span></p>
+<p><span class="math display">\[p(\epsilon_i) = \frac{e^{-\frac{\epsilon_i^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}\]</span></p>
 <p>which we think of as a function of <span class="math inline">\(\beta\)</span>.</p>
 <p>Because all of the <span class="math inline">\(\epsilon_i\)</span> are assumed to be independent of one-another, we can write the probability (or <em>likelihood</em>) of observing the training set (given <span class="math inline">\(\beta\)</span>) as <span class="math display">\[
-L(\beta) := P(y_i, x_i, \beta) = \prod_i p(y_i | x_i, \beta) = \prod_i \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}
+l(\beta) := \prod_i p(y_i; \beta) = \prod_i \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}
 \]</span></p>
 <p>This leads us to the idea of instead finding the <span class="math inline">\(\beta\)</span> that <strong>maximizes</strong> the likelihood, or looking for</p>
-<p><span class="math display">\[\tilde{\beta} = \textrm{argmax}_\beta \left(L(\beta)\right)\]</span>.</p>
+<p><span class="math display">\[\tilde{\beta} = \textrm{argmax}_\beta \left(l(\beta)\right)\]</span>.</p>
 <p>Because the logarithm is a monotonic function, we can also maximize the <em>log-likelihood</em>, which turns the product into a nice sum and kills the exponent:</p>
-<p><span class="math display">\[ \log(L(\beta)) = - c *\sum_i \frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} \]</span> The constants are independent of <span class="math inline">\(\beta\)</span>, so maximizing this is the same as maximizing</p>
+<p><span class="math display">\[ \log(l(\beta)) = - c *\sum_i \frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} \]</span> The constants are independent of <span class="math inline">\(\beta\)</span>, so maximizing this is the same as maximizing</p>
 <p><span class="math display">\[\sum_i -  (y_i - \beta \cdot x_i)^2\]</span></p>
 <p>Which is the same as minimizing</p>
 <p><span class="math display">\[\sum_i (y_i - \beta \cdot x_i)^2.\]</span></p>

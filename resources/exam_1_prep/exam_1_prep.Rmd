@@ -1,0 +1,19 @@
+---
+title: "Exam 1 Study Guide"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+This is a short document meant to provide a guide for the first exam. Anything that was discussed in class, the DataCamp courses, the homework, or the reading could be on the exam, so make sure that you understand everything that we have covered so far.
+
+## R 
+
+## Linear Regression
+

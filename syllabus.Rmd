@@ -22,7 +22,7 @@ list-style-type: none;
 
 <ul class="courseinfo">
 <li><i class="fa fa-child" aria-hidden="true"></i>  <b>Instructor:</b> `r paste(" ",params$instructor)`</li>
-<li><i class="fa fa-building" aria-hidden="true"></i> <b>Office Hours (tentative):</b> `r paste(" ",params$oh)`</li>
+<li><i class="fa fa-building" aria-hidden="true"></i> <b>Office Hours:</b> `r paste(" ",params$oh)`</li>
 <li><i class="fa fa-envelope-o" aria-hidden="true"></i> <b>Email:</b> `r paste(" ",params$email)`</li>
 <li><i class="fa fa-home" aria-hidden="true"></i> <b>Location:</b> `r paste(" ",params$room)`</li>
 <li><i class="fa fa-clock-o" aria-hidden="true"></i> <b>Time:</b> `r paste(" ",params$time)`</li>

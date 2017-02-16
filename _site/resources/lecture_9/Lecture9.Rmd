@@ -1,0 +1,247 @@
+--- 
+title: "Lecture 9: MLE, redux." 
+output: html_notebook 
+---
+
+# Last time
+
+Last time we discussed the *Bias-Variance* decomposition and how that manifests
+itself in terms of model selection and potential tradeoffs
+
+The overall takeaway from the discussion is that we can generally adjust the
+lever of *model complexity*, which increases the size of the hypothesis space
+$H$ that we try to approximate some function $f$ with.
+
+As we increase model complexity, we generally run into the problem of
+overfitting, due to the fact that we are only given a fixed initial set of data.
+This leads to *increased variance* in our model fitting process (as a function
+of the data we are given as a training set), even if we are more likely to
+include $f$ in $H$.
+
+Conversely, if we have a very small $H$ consisting of simpler models, our chance
+of including $f$ in $H$ is lower, and the chance of having an $f$ that
+closely-approximates $f$ is low as well. This leads to *increased bias*, which
+is measured as the total relative error between $f$ and the "average prediction"
+within $H$ over all possible choices of training set.  At the same time, we
+usually have fewer problems with overfitting, as our models are simpler and so
+there is *lower variance*.
+
+This situation is known as the *bias-variance tradeoff*, and depending on the
+particular situation that you are in, you may decide to trade off one quantity
+for another.
+
+## Maximum likelihood
+
+This was discussed in an earlier lecture, but revisiting it to make sure that
+the ideas are understood is important. Maximum likelihood estimation allows us
+to have a procedure for finding parameters of a model that make our data appear
+most likely given the probabilistic assumptions of a model, and moreover to do
+so in a computationally-tractable way.
+
+### General setup
+
+The general setup is as follows:
+
+* We have some parameter (real-valued) $\theta$ that determines a probability
+distribution. For example:
+
+* the mean of Gaussian; * the variance of a Gaussian; * the coefficients of a
+linear model; * the mean of *any* numerical distribution; * the variance of
+*any* numerical distribution;
+
+* We have a sample of data, assumed to come from that distribution. For example:
+
+* a bunch of points that come from a Gaussian; * a training set for a linear
+model; * a bunch of numbers, assumed to come from some distribution (e.g. counts
+of some Poisson process)
+
+* The problem we are faced with is *estimating the statistic*, just knowing the
+data that we are given. For example: * guessing the mean/variance of the
+gaussian; * fitting the coefficients of a linear model; * finding the $\lambda$
+parameter for a Poisson distribution; * finding the mean of some collection of
+numbers;
+
+**Succinct definition**: Let $\{ x_i\}_{i=1}^n$ be a random sample from a
+distribution that depends on one or more unknown parameters (statistics)
+$\theta_1, \theta_2, \dots, \theta_m$ with probability density (or mass)
+function $f(x_i; \theta_1, \theta_2, \ldots, \theta_m)$. Suppose that the
+$\theta_i$ are restricted to some fixed parameter space. Then:
+
+* When regarded as a function of the $\theta_i$, the joint probability density
+(or mass) function of $\{x_i\}$
+
+$$ l(\theta_1, \theta_2, \ldots, \theta_m, \{x_i\}) = \prod_{i=1}^n f(x_i;
+\theta_1, \theta_2, \ldots, \theta_m)$$ is the **likeliood function** (we can
+also omit the $\{x_i\}$ from the notation if the data is fixed or evident).
+Under the assumption of independence of the samples $x_i$, this is the
+probability mass (density) associated to the data (as the probability of
+independent events happening simultaneously is the product of their
+probabilities).
+
+* If $u_1, u_2, \ldots, u_m$ are the values of $\theta_1, \theta_2, \ldots,
+\theta_m$ that maximize $l$, then
+
+$$\theta_i = u_i$$ is the **maximum likelihood estimator** of $\theta_i$, and
+$u_i$ are the **maximum likelihood estimates** for $\theta_i$.
+
+* Because the logarithm is an increasing, convex function that converts products to sums, it's equivalent and usually easier to maximize the **log-likelihood** function.
+
+### Estimating the probability
+
+The **Bernoulli distribution** is a probability distribution on the two point
+set $\Omega = \{0,1\} \simeq \{H,T\}$. It corresponds to the normal "weighted
+coin" probability space that you might think of, and it has a probability mass
+function
+
+$$B(x; p) = p^x (1-p)^{1-x} $$
+
+which is a function of the parameter $p$, interpreted as the probability of
+getting the value 1. This is easy to see:
+
+$$ \begin{align} B(1; p) &= p^{1}*(1-p)^{1-1} \\ &= p*(1-p)^0 \\ &= p \\ 
+\end{align} $$
+
+$$ \begin{align} B(0; p) &= p^{0}*(1-p)^{1-0} \\ &= p^0*(1-p)^1 \\ &= (1-p) \\ 
+\end{align} $$ Now, given a collection of observations sampled from this
+distribution $\{x_i\} \subset \{0,1\}$, we might ask what the best estimate for
+$p$ is. This is tantamount to asking what the weight is on a coin, given the
+number of times that you've flipped it.
+
+To copy the notation used before, the single parameter is  $\theta_1 = p$, and
+
+$$f(x_i; \theta_1) =\theta_1^{x_i}*(1-\theta_1)^{1-x_i} $$
+
+and
+
+$$l(\theta_1, \{ x_i\}) = \prod_{i=1}^n \theta_1^{x_i}*(1-\theta_1)^{1-x_i} $$
+
+Now, back to easier notation, we write out the log-likelihood function:
+
+$$ \begin{align} \log(l(p)) &= \log(\prod_{i=1}^n B(x_i;p)) \\ &=
+\log(\prod_{i=1}^n p^{x_i}*(1-p)^{1-{x_i}}) \\ &= \sum_{i=1}^n \log (
+p^{x_i}*(1-p)^{1-{x_i}})\\ &= \sum_{i=1}^n x_i \log (p) +  (1-x_i)\log(1-p) \\ 
+&= (\sum_{i=1}^n x_i) \log (p) +  (n- (\sum_{i=1}^n x_i))\log(1-p) \\ 
+\end{align} $$
+
+Now, let's differentiate this as a function of $p$:
+
+$$ \begin{align} \frac{d}{dp}\log(l(p)) &=  \frac{d}{dp}\left[ (\sum_{i=1}^n
+x_i) \log (p) +  (n- (\sum_{i=1}^n x_i))\log(1-p) \right]\\ &= \frac{1}{p}
+(\sum_{i=1}^n x_i)  - \frac{(n - (\sum_{i=1}^n x_i) ) }{1-p}\\ \end{align} $$
+
+Setting this to 0:
+
+$$ \begin{align} 0 &=   \frac{1}{p} (\sum_{i=1}^n x_i)  - \frac{(n -
+(\sum_{i=1}^n x_i) ) }{1-p}\\ &= \frac{(1-p) (\sum_{i=1}^n x_i) -p(n -
+(\sum_{i=1}^n x_i) }{p(1-p)} \\ &= \frac{(\sum_{i=1}^n x_i) -pn}{p(1-p)} 
+\end{align} $$
+
+Which implies that
+
+$$pn = \sum_{i=1}^n x_i$$
+
+or
+
+$$p = \frac{(\sum_{i=1}^n x_i)}{n}.$$
+
+Remember, the $x_i$ are just 1,0, so the numerator is just the number of $x_i$
+that are 1, so you can write this as
+
+$$p = \text{fraction of 1s in sample}$$
+
+which is exactly what you'd expect.
+
+### Estimating the mean/variance
+
+Suppose that we have a bunch of samples taken from an (approximately) normal
+distribution, but we don't know what it's mean is. This can come about if, for
+example, we believe that we are getting some random samples from some
+homogeneous population (e.g. tail lengths of a specific cat breed -- this is not
+normal, but it is approximately normal by the central limit theorem).
+
+What is the best guess for the mean of the distribution, given the data that we
+have? That is, given $\{ x_i \} \subset \mathbb{R}$ sampled from a normal
+distribution $N(\mu, \sigma^2)$, what is a good estimate for $\mu$?
+
+We do the same thing. The probabily density function for the Gaussian $N(\mu, \sigma^2)$ is given by 
+
+$$ p(x_i; \mu, \sigma^2) = \frac{1}{\sigma \sqrt(2\pi)} \exp\left(-\frac{(x_i-\mu)^2}{2\sigma^2}\right)$$
+
+Because of how products work with exponentials, the likelihood is given by:
+
+$$ l(\mu, \sigma^2) = \frac{1}{\sigma^n (2\pi)^{n/2}} \exp\left(-\frac{\sum_{i=1}^n (x_i-\mu)^2}{2\sigma^2}\right)$$
+
+The log likelihood is then 
+
+$$ \log(l(\mu, \sigma^2)) = -\frac{n}{2} \log(\sigma^2) - \frac{n}{2} \log(2\pi) -\frac{\sum_{i=1}^n (x_i-\mu)^2}{2\sigma^2}$$
+
+Differentiating this with respect to $\mu$:
+
+$$
+\begin{align}
+\frac{d}{d\mu} \log(l(\mu, \sigma^2)) &= \frac{d}{d\mu}\left[ -\frac{n}{2} \log(\sigma^2) - \frac{n}{2} \log(2\pi) -\frac{\sum_{i=1}^n (x_i-\mu)^2}{2\sigma^2} \right] \\ 
+&=\frac{1}{2\sigma^2} \frac{d}{d\mu} \sum_{i=1}^n (x_i-\mu)^2 
+\end{align}
+$$
+
+Setting this equal to 0 we get 
+
+$$
+\begin{align}
+0 &= \frac{d}{d\mu} \sum_{i=1}^n (x_i-\mu)^2 \\
+&= 2 * \sum_{i=1} ^n (x_i - \mu) \\
+&= -2n\mu + 2\sum_{i=1}^n x_i
+\end{align}
+$$
+
+which implies that 
+
+$$ \mu = \frac{\sum_{i=1}^n x_i}{n}$$
+
+which is just the normal average of the sample values. 
+
+Let's do the same thing for the variance:
+
+Differentiate the log likelihood as a function of $\sigma^2$:
+
+$$
+\begin{align}
+\frac{d}{d\sigma^2} \log(l(\mu, \sigma^2)) &= \frac{d}{d \sigma^2}\left[ -\frac{n}{2} \log(\sigma^2) - \frac{n}{2} \log(2\pi) -\frac{\sum_{i=1}^n (x_i-\mu)^2}{2\sigma^2} \right] \\ 
+&= \frac{-n}{2\sigma^2} + \frac{\sum_{i=1}^n (x_i-\mu)^2}{2 (\sigma^2)^2}
+\end{align}
+$$
+
+Setting it equal to 0, we conclude that 
+
+$$n\sigma^2 = \sum_{i=1}^n (x_i-\mu)^2 $$
+or 
+
+$$\sigma^2 = \frac{\sum_{i=1}^n (x_i-\mu)^2}{n} $$
+
+### Linear Regression
+
+Remember the setup for linear regression.
+
+We assumed that the data was generated by sampling random error from a linear function
+
+$$f(x) = \beta \cdot x + \epsilon_i$$ 
+
+and moreover we assumed that the $\epsilon_i$ are distributed as a normal distribution, with density function:
+
+$$p(\epsilon_i) = \frac{e^{-\frac{\epsilon_i^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}$$
+
+Because we assumed that $y_i = \beta \cdot x_i + \epsilon_i$, we can write $y_i - \beta \cdot x_i = \epsilon_i$, so this becomes 
+
+$$p(y_i; \beta) = \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}$$
+
+Then the likelihood is:
+
+$$
+l(\beta) := \prod_i p(y_i; \beta) = \prod_i \frac{e^{-\frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} }}{\sqrt{\left(2\sigma \pi \right)}}
+$$
+
+The log-likelihood is 
+
+$$ \log(l(\beta)) = - c *\sum_i \frac{(y_i - \beta \cdot x_i)^2}{2\sigma^2} $$
+
+and so maximizing this is the same as minimizing the loss function. 
