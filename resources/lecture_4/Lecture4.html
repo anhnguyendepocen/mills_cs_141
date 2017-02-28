@@ -101,13 +101,13 @@
 <p>We are going to address #2 in more detail first, which will allow us to get a sense of how well our regressions are performing. This requires introducing the probabilistic interpretation of linear regression, which requires us to step back and discuss some basic probability theory.</p>
 <div id="the-rules-of-probability" class="section level3">
 <h3>The Rules of Probability</h3>
-<p><strong>Definition</strong>: A <em>probability space</em> is a set <span class="math inline">\(\Omega\)</span> with a <em>probability function</em> <span class="math display">\[p: \{ \text{subsets of } \Omega \} \rightarrow \mathbb{R}\]</span> that satisfies the following properties:</p>
+<p><strong>Definition</strong>: A <strong>probability space</strong> is a set <span class="math inline">\(\Omega\)</span> with collection <span class="math inline">\(F \subseteq \left\{ \text{subsets of } \Omega := 2^\Omega \right\}\)</span> called the <strong>event space</strong>, equipped with a <strong>probability function</strong> <span class="math inline">\(p: F \rightarrow [0,1]\)</span> that satisfies the following properties:</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(p(\Omega) = 1\)</span> (law of total probability)</li>
 <li><span class="math inline">\(p(\emptyset) = 0\)</span> (probability of an empty event is 0)</li>
-<li><span class="math inline">\(p(\bigcup_i X_i) = \sum_i p(X_i)\)</span> for any countable collection of <em>disjoint</em> subsets <span class="math inline">\(X_i\)</span> of <span class="math inline">\(\Omega\)</span>.</li>
+<li><span class="math inline">\(p(\bigcup_i X_i) = \sum_i p(X_i)\)</span> for any countable collection of <strong>disjoint</strong> subsets <span class="math inline">\(X_i\)</span> of <span class="math inline">\(\Omega\)</span>.</li>
 </ol>
-<p>The subsets of <span class="math inline">\(\Omega\)</span> are called <em>events</em> or <em>outcomes</em>, and we speak of <span class="math inline">\(p(X)\)</span> as “the probability of the event <span class="math inline">\(X\)</span>”, for <span class="math inline">\(X \subseteq \Omega\)</span>.</p>
+<p>The subsets in <span class="math inline">\(F\)</span> are called <strong>events</strong>, the elements of <span class="math inline">\(\Omega\)</span> are called <strong>outcomes</strong> and we speak of <span class="math inline">\(p(X)\)</span> as “the probability of the event <span class="math inline">\(X\)</span>”, for <span class="math inline">\(X \subseteq \Omega\)</span>.</p>
 <div id="example" class="section level4">
 <h4>Example</h4>
 <p>The most well-cited example is the probability space associated to flipping a fair coin. In this case, we have that <span class="math inline">\(\Omega = \{ \text{set of all possible flips of a single coin} \} = \{ \emptyset, H, T, H \vee T\} \}.\)</span></p>

@@ -60,13 +60,14 @@ We are going to address #2 in more detail first, which will allow us to get a se
 
 ### The Rules of Probability
 
-**Definition**: A *probability space* is a set $\Omega$ with a *probability function* $$p: \{ \text{subsets of } \Omega \} \rightarrow \mathbb{R}$$ that satisfies the following properties:
+**Definition**: A **probability space** is a set $\Omega$ with collection $F \subseteq \left\{ \text{subsets of } \Omega := 2^\Omega \right\}$ called the **event space**, equipped with a **probability function** $p: F \rightarrow [0,1]$
+that satisfies the following properties:
 
 1. $p(\Omega) = 1$ (law of total probability)
 2. $p(\emptyset) = 0$ (probability of an empty event is 0)
-3. $p(\bigcup_i X_i) = \sum_i p(X_i)$ for any countable collection of *disjoint* subsets $X_i$ of $\Omega$. 
+3. $p(\bigcup_i X_i) = \sum_i p(X_i)$ for any countable collection of **disjoint** subsets $X_i$ of $\Omega$. 
 
-The subsets of $\Omega$ are called *events* or *outcomes*, and we speak of $p(X)$ as "the probability of the event $X$", for $X \subseteq \Omega$. 
+The subsets in $F$ are called **events**, the elements of $\Omega$ are called **outcomes** and we speak of $p(X)$ as "the probability of the event $X$", for $X \subseteq \Omega$. 
 
 #### Example
 
@@ -117,14 +118,6 @@ $$
 **Definition**: The *distribution of a random variable* $S$ defined on $(\Omega, p_\Omega)$ is the probability space with underlying set $\mathbb{R}$ defined by the values of the random variable. That is, the probability associated to any subset  $X \subset \mathbb{R}$ is 
 $$p_S (X) = p_\Omega (\omega \in \Omega \text{ with } S(\omega) \in X) = p_\Omega (S^{-1}(X)) .$$
 
-**Example**: In the previous example, we have that the distribution for $S$ is given by 
-$$p_S(X) =
-\begin{cases}
-.5 & \text{one of 20,50 in } X  \\
-0 & \text{neither 20, 50 in } X \\
-1 & \text{both 20, 50 in } X \\
-\end{cases}
-$$
 
 #### Density Functions
 
@@ -134,7 +127,7 @@ Sometimes random variables have *density functions* associated to them, which al
 
 $$ P_S (a \leq X \leq b) = \int_a^b s(x) dx.$$
 
-We can think of $s(x)$ as being the probability that $S$ falls in a small interval $[x, x+ dx]$.
+We can think of $s(x)*dx$ as being the probability that $S$ falls in a small interval $[x, x+ dx]$, and so "adding these up" (integrating) over some collection of values gives us the total probability of those values.  
 
 
 
