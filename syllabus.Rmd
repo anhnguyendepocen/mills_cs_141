@@ -44,7 +44,7 @@ This course is designed for students with a working, basic knowledge of:
 
 These are not hard requirements, however -- the course has been designed to be self-contained, and students with sufficient quantitative abilities and determination ought to be able to keep up.
 
-Resources are to provided for students to understand the background material that is relevant to the course as it progresses. 
+Resources will be provided for students to understand the background material that is relevant to the course as it progresses. 
 
 ## Listed Requirements
 The listed requirements for this course are:
@@ -75,7 +75,7 @@ This course has a Blackboard site that you can access through the Mills portal. 
 Attendance is a requirement for this course, and roll will be taken during each class session. Up to 4 absences will be permissible with no penalty, after which you will lose 5\% of your total grade. An excessive number of absences will result in an academic warning.
 
 ## Homework
-Homework assignments will be given weekly and due on Mondays. These will generally consist of some textbook-style exercise problems, with potentially a code-based programming component. These must follow writing guidelines that will be distributed separately. 
+Homework assignments will be given weekly and usually due 1 week after assignment. These will generally consist of some textbook-style exercise problems, with potentially a code-based programming component. These must follow writing guidelines that will be distributed separately. 
 
 Homework will **not be accepted late**, so try and turn things in on time. Some homework grades will be dropped at the end of the semester, however, so don't worry too much if a homework or two is missed for a necessary reason.
 
@@ -101,18 +101,18 @@ Mills policy states that students with exam accommodations must finalize arrange
 accommodations well in advance in order to avoid having to take the exam without them!
 
 ## Course Project
-This class will involve the completion of a course project that allows you to exhibit your understanding of machine learning concepts and to produce. The specifics of allowable project structures will be determined based on the course progress and announced before approximately a month into the course. The course project will be due before the last day of class.
+This class will involve the optional completion of a course project that allows you to exhibit your understanding of machine learning concepts and to produce. The specifics of allowable project structures will be determined based on the course progress and announced before approximately a month into the course. The course project will be due before the last day of class.
 
 ## Grading
 
 The course will be graded using the following weightings:
 
 * **Attendance**: 5\%
-* **Homework**: 35\%
+* **Homework**: 55\%
 * **Exams**: 40\% total
     + 10\% for each 1 hour exam
     + 20\% for the 2 hour final exam
-* **Course Project**: 20\%
+* **Course Project**: +10\%
 
 *******
 
