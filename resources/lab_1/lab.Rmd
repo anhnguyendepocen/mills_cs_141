@@ -1,0 +1,226 @@
+---
+title: "Lab "
+output: 
+  html_notebook: 
+    code_folding: show
+    highlight: pygments
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+library(MASS)
+library(modelr)
+library(broom)
+library(huxtable)
+library(tidyverse)
+library(hrbrthemes)
+library(ggplot2)
+library(corrr)
+library(GGally)
+data(Boston)
+names(Boston)
+```
+
+```{r}
+# Hypothesis: There is potentially a multi-modal distribution of rooms/dwelling.
+summary(Boston$rm)
+```
+
+```{r}
+Boston %>% 
+  ggplot(aes(x=rm)) +
+  geom_histogram(bins=60) + 
+  theme_ipsum()
+```
+
+```{r}
+Boston %>% 
+  ggplot(aes(x=medv*1000)) + 
+  geom_histogram(bins=50, fill="black") + 
+  theme_ipsum() + 
+  xlab("Home Price ($)") +
+  ylab("Count")
+```
+
+```{r}
+
+Boston %>% 
+  select(tax,medv) %>%
+  ggpairs()
+```
+
+```{r}
+bos_corrs <- Boston %>% 
+  correlate()
+bos_corrs %>%
+  rearrange %>% 
+  shave %>% 
+  fashion
+```
+
+```{r}
+bos_corrs %>%
+  rearrange %>% 
+  shave %>% 
+  rplot
+```
+
+```{r}
+network_plot(bos_corrs, min_cor = .4)
+```
+
+```{r}
+mod_1 <- lm(medv ~ lstat, data = Boston)
+broom::tidy(mod_1) %>% hux
+```
+
+```{r}
+broom::glance(mod_1) %>% hux
+```
+
+```{r}
+grid <- Boston %>% 
+  data_grid(lstat)
+grid
+```
+
+```{r}
+grid <- grid %>% 
+  add_predictions(mod_1)
+grid
+```
+
+```{r}
+Boston %>%
+  ggplot(aes(x=lstat)) + 
+  geom_point(aes(y=medv)) + 
+  geom_line(aes(y=pred), data=grid, color="blue", size=1) + 
+  theme_ipsum()
+```
+
+```{r}
+Boston <- Boston %>% 
+  add_residuals(mod_1)
+Boston
+```
+
+
+
+```{r}
+Boston %>% 
+  ggplot(aes(resid)) + 
+  geom_freqpoly(binwidth = 0.5) + 
+  theme_ipsum()
+```
+
+```{r}
+Boston %>% 
+  ggplot(aes(lstat, resid)) + 
+  geom_ref_line(h = 0) +
+  geom_point() 
+```
+
+```{r}
+boot_1 <- modelr::bootstrap(Boston, 300)
+models_1 <- map(boot_1$strap, ~ lm(medv ~ lstat, data= .))
+tidied_1 <- map_df(models_1, broom::tidy, .id = "id") 
+tidied_1
+```
+
+```{r}
+tidied_1 %>% 
+  filter(term=="lstat") %>% 
+  ggplot(aes(x=estimate)) + 
+  geom_histogram(bins=40) + 
+  theme_ipsum()
+```
+
+
+```{r}
+Boston %>% 
+  mutate(big_resid = resid > 10) %>% 
+  group_by(big_resid) %>% 
+  summarise_each(funs(mean)) %>% 
+  gather(-big_resid, key=variable, value=value) %>%
+  group_by(variable) %>% 
+  summarize(var = var(value)) %>% 
+  arrange(desc(var)) %>%
+  hux
+```
+
+```{r}
+mod_2 <- lm(medv ~ lstat*indus , data = Boston)
+broom::tidy(mod_2) %>% hux
+```
+
+```{r}
+broom::glance(mod_2) %>% hux
+```
+
+```{r}
+grid <- Boston %>% 
+  data_grid(lstat, indus)
+grid
+```
+
+```{r}
+grid <- grid %>% 
+  add_predictions(mod_2)
+grid
+```
+
+```{r}
+Boston %>%
+  ggplot(aes(x=lstat)) + 
+  geom_point(aes(y=medv)) + 
+  geom_line(aes(y=pred), data=grid, color="blue", size=1) + 
+  theme_ipsum()
+```
+
+```{r}
+Boston <- Boston %>% 
+  add_residuals(mod_2,var = "resid2")
+Boston
+```
+
+```{r}
+Boston %>% 
+  ggplot(aes(resid2)) + 
+  geom_freqpoly(binwidth = 0.5) + 
+  theme_ipsum()
+```
+
+```{r}
+mod_3 <- lm(medv ~ .  , data = Boston %>% select(-resid, -resid2))
+broom::tidy(mod_3) %>% arrange(p.value) %>% hux 
+```
+
+```{r}
+broom::glance(mod_3) %>% hux
+```
+
+```{r}
+grid <- Boston %>% 
+  data_grid(names(Boston),.model = mod_3)
+grid
+```
+
+
+```{r}
+rm(Boston)
+data(Boston)
+Boston <- Boston %>% 
+  add_residuals(mod_3,var = "resid_3") %>% 
+  add_predictions(mod_3, var="pred_3")
+Boston
+```
+
+```{r}
+ggpairs(data = Boston, columns = c("pred_3", "resid_3", "lstat", "indus", "crim", "medv", "age", "rm"))
+```
+
+```{r}
+plot(mod_3)
+```
+

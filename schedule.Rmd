@@ -24,7 +24,7 @@ generate_chunk <- function(week, raw_table){
 ```{r, include=FALSE}
 sched <- gs_title('Schedule')
 sheets <- gs_ws_ls(sched)
-loaded_sheets <- lapply(sheets, function(x) {Sys.sleep(6); gs_read(ss=sched, ws = x)})
+loaded_sheets <- lapply(sheets, function(x) {Sys.sleep(v); gs_read(ss=sched, ws = x)})
 ```
 
 This is the schedule for the course.
