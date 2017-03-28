@@ -1,0 +1,205 @@
+---
+title: "Lecture: Linear Discriminant Analysis"
+author: "Matt Pancia"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Last Time
+
+Last lecture, we talked about **logistic regression**, our first *classification* algorithm. This falls in a class of so-called **generalized linear models**, which share a common form and method of fitting.
+
+
+# Bayes' Theorem
+
+Bayes' Theorem (Law/Rule) is an important, basic result in probability theory. It is very simple to prove, but the formula it produces is extremely useful and also provides the basis for "*Bayesian*" probability theory and reasoning.
+
+**Theorem (Bayes' Theorem):** Let $A, B$ be events in a probability space with probability function $p$. Then:
+
+$$p(A | B)  = \frac{p(B | A)p(A)}{p(B)}$$
+
+where 
+
+* $p(A), p(B)$ are the probabilities of observing $A,B$ without regard to each other
+* $p(A | B)$ is the *conditional probability* of $A$ given that $B$ is true. 
+* $p(B | A)$ is the probability of $B$ given that $A$ is true.
+
+**Proof:**
+
+The proof is straightforward -- we compute the probability of observing $A$ and $B$ at the same time. We must have, first, that we can compute 
+
+$$ p(B | A) p(A)   = p(A \wedge B) = p(A | B) p(B).$$
+
+This comes from the definitions of $p(A|B)$ and $p(B|A):$
+
+$$p(A|B) := \frac{p(A \wedge B)}  {p(B)}$$
+$$p(B|A) := \frac{p(A \wedge B)} {p(A)}$$
+
+Then we simply divide by $p(B)$ (provided that $p(B) \neq 0$), giving the result. $\blacksquare$
+
+## Example
+
+Suppose a drug test is 99% sensitive and 99% specific. That is, the test will produce 99% true positive results for drug users and 99% true negative results for non-drug users. Suppose that 0.5% of people are users of the drug. If a randomly selected individual tests positive, what is the probability that he is a user?
+
+Let's use the rule:
+
+$$
+\begin{align}
+P(\text{User}\mid\text{+}) &= \frac{P(\text{+}\mid\text{User}) P(\text{User})}{P(\text{+}\mid\text{User}) P(\text{User}) + P(\text{+}\mid\text{Non-user}) P(\text{Non-user})} \\[8pt]
+&= \frac{0.99 \times 0.005}{0.99 \times 0.005 + 0.01 \times 0.995} \\[8pt]
+&\approx 33.2\%
+\end{align}
+$$
+
+This is actually a pretty unintuitive result. If someone tests positive, then they are actually more likely than not to still not be taking the drug. This comes from the fact that the baseline percentage of the population that uses the drug is fairly low -- so the 1% false positive rate for the test actually is fairly significant.
+
+## Terminology
+
+The terminology around Bayes' Theorem reflects a type of probalistic inference (*Bayesian*, as opposed to *Frequentist*), and it's worth knowing what this terminology is. Remember the expression for Bayes' Theorem:
+
+$$p(A | B)  = \frac{p(B | A)p(A)}{p(B)}$$
+
+In this expression, there are several quantities:
+
+* $p(A)$ is called the **prior**
+* $p(A | B)$ is called the **posterior**
+* $\frac{p(B|A)}{p(B)}$ is called the **support**
+
+Why these names?
+
+In this setup, we think of $A$ as some *proposition* that we are looking to investigate, e.g. "Does this person use a drug?". $B$ is the *new evidence* that we have received, and we are looking to update our estimate of the probability that $A$ is true, given this new evidence. This is represented by the posterior, $p(A | B)$, or "the probability of the proposition, given the evidence".
+
+Bayes' Theorem tells us how to update our estimate of $p(A)$ (our "prior" estimate -- from before the evidence has arrived) given this new evidence.
+
+# The Bayes Classifier
+
+Given a classification problem, there is always an "optimal" classifier that could exist. What "optimal" means will be made clear shortly, but the idea is straightforward:
+
+Suppose we are in a supervised classification setting, wherein we have some feature space $X$ and $k$ labels $c_1, \dots, c_k$ for those points. We can use Bayes' theorem to calculate the probability that a given data point $x \in X$ is in class $j$ (has $y = c_j$):
+
+$$p(y = c_j | x) = \frac{p(x | y = c_j) p(y = c_j)}{p(x)}$$
+
+This tells us the probability that $x$ is labeled as being in class $j$ as a function of the right hand side of the expression. 
+
+Supposing that we can compute this expression for every $j$, and this gives us a collection of probabilities $\{p(y = c_j | x)\}$. The **Bayes optimal classifier** assigns the label to $x$ that maximizes the probability:
+
+**Bayes Optimal Classifier**: 
+
+Assign an object $x$ to class $c_j$ if 
+
+$$ p(c_j) p(x|y = c_j) > p(c_l)p(x|y = c_l) $$
+for all $l \neq j$.
+
+It can be shown that this classifier is optimal in the sense that it minimizes the overall misclassification rate for all possible choices of test data.
+
+Unfortunately, computing this classifier requires that we be able to compute $p(c_j)$ and $p(x | y = c_j)$ for all $x, j$, which is generally not tractable. 
+
+Many classification schemes work by approximating these two quantities and then using those approximations to approximate the Bayes optimal classifier. One such technique, which we'll discuss shortly, is **Linear Discriminant Analysis**, which approximates the distribution $p(x | y = c_j)$ as normal.
+
+# Linear Discriminant Analysis
+
+Now we can talk about linear discriminant analysis, which is a way of performing multi-class classification. This uses Bayes' Theorem to produce a scheme for deciding whether or not a given data point belongs to one of $k$ classes. As mentioned above, this works by approximating the Bayes optimal classifier using a normality assumption on $p(x | y = c_j)$. 
+
+## Setup
+
+Suppose we are in a $k$-class classification context, where we have $k$ labels $C = \{c_j\}_{j=1}^k$ and data that lives in a feature space $X$. Suppose that we are given a training set $\{(x_i, y_i\}$ with $x_i \in X$ and $y_j \in C $. We are interested in using this data to approximate the Bayes optimal classifier, which requires that we compute the quantities
+
+$$p_j(x) := p(c_j)p(x | y = c_j)$$ for an arbitrary $x \in X$ and all $j$.
+
+
+We will do this by approximating the quantities $p(c_j)$ and $p(x | y = c_j)$ separately. 
+
+## Approximating $p(c_j)$
+
+One of the quantities has a pretty obvious approximation -- 
+
+$p(c_j) = \frac{\text{# of samples in class } j }{\text{total # of samples}}$
+
+or just the empirical frequency of the class $j$ in the training data that we are given. Provided that the training set that we feed into this procedure is not too biased (the proportions of the classes are reflective of the genuine proportions of classes in reality), this is a reasonable approximation. **This requires a decently random sample of training data**. 
+
+For shorthand, we abbreviate this quantity 
+
+$$p(c_j) := \pi_j .$$
+
+## Approximating $p(x | y = c_j)$
+
+Approximating $p(x|y=c_j)$ is a bit tougher, given some training data, as we generally don't have a representative sample of all possible $x$ values for a given class, just a discrete set of samples. If we assume some distribution of possible $x$ values for the class, however, then we can approximate that distribution using the data.
+
+This is the approach we will take, assuming that the $x$ values for each class are distributed **normally (a multivariate Gaussian)**, and we approximate the parameters of the Gaussian using the data. One we have that, we can compute $p(x | y = c_j)$ as the density of this Gaussian evaluated at $x$ (the likelihood) and compare across the $j$. 
+
+For shorthand, let's abbreviate this quantity 
+
+$$ f_j (x) := p(x | y = c_j).$$
+
+### For $p=1$ 
+
+Let's first look at the case where we have only a single predictor, i.e. $X \simeq \mathbb{R}$. In this case, we assume 
+
+$$ f_j (x) \sim N(\mu_j, \sigma_j) $$
+for some class-specific means, variances $\mu_j, \sigma_j$. 
+
+and so the probability density function is given by 
+
+$$f_j (x) = \frac{1}{\sqrt{2\pi}\sigma_j} \exp\left(-\frac{1}{2\sigma^2_j}(x - \mu_j)^2 \right).$$
+
+Let us make a further simplifying assumption, which is that the variance $\sigma_j$ is constant across all the $j$, i.e. $\sigma_i = \sigma_j = \sigma$ for all $i,j$. 
+
+In this case, the Bayes optimal quantity we compute is approximated by 
+
+$$ p_j(x) = \pi_j  \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2\sigma^2}(x - \mu_j)^2 \right)  $$
+Because the logarithm is an increasing function, maximizing this quantity across the $j$ is the same as maximizing the log of this quantity, so we need to maximize
+
+$$
+\begin{align*}
+\log(p_j(x)) &= \log\left(\pi_j  \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2\sigma^2}(x - \mu_j)^2 \right)\right)  \\
+&= \frac{1}{\sqrt{2\pi}\sigma} \left(\log(\pi_j) + \frac{-(x-\mu_j)^2}{2\sigma^2} \right) \\
+&=  \frac{1}{\sqrt{2\pi}\sigma} \left( x * \frac{\mu_j}{\sigma^2} - \frac{\mu_j^2}{2\sigma^2} + \log(\pi_j) \right)
+\end{align*}
+$$
+
+We can ignore the constant out front, as it does not depend on $j$, so we just need to maximize 
+
+$$ \delta_j (x) = x * \frac{\mu_j}{\sigma^2} - \frac{\mu_j^2}{2\sigma^2} + \log(\pi_j)$$
+
+This quantity $\delta_j$ is called the *discriminant*. Our classifier assigns a data point $x$ the label $j$ for which $\delta_j$ is greatest.
+
+#### For $|C| = 2$
+
+If we only have two classes, $c_1, c_2$ and they are equally likely ($\pi_1 = \pi_2$), then we can compute that we are assigning an observation to class $1$ if 
+
+$$ 2x (\mu_1 - \mu_2) > \mu_1^2 - \mu_2^2$$
+and to class 2 otherwise. The **decision boundary** occurs when the probabilites are equal, which we can compute as the point $x$ where
+
+$$ x = \frac{(\mu_1^2 - \mu_2^2)}{2(\mu_1-\mu_2)} = \frac{\mu_1 + \mu_2}{2}$$
+which is just the midpoint of the two means of the distributions of $x$ for the two classes.
+
+A picture is as follows:
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(hrbrthemes)
+samp_1 <- data.frame(x = rnorm(n = 100000, sd = 1, mean = -2), samp = "1")
+samp_2 <- data.frame(x = rnorm(n = 100000, sd = 1, mean = 2), samp = "2")
+bind_rows(samp_1, samp_2) %>% 
+  ggplot(aes(x=x, fill = samp)) + 
+  geom_density(alpha = .3) + geom_vline(xintercept = 0, linetype = "dashed") + theme_classic() + ylab("") + xlab("")
+```
+
+We have points sampled from two normal distributions centered around -2 and 2 with a standard deviation of 1. For $x > 1$, we assign class 2, for $x <0 $ we assign class 1, and we are unsure at $x = 0$. 
+
+#### Approximating $\mu_j$ and $\sigma$
+
+We still need to approximate both $\mu_j$ and $\sigma$, the means of the normal distributions of $x$ for class $j$, and the common standard deviation of those distributions. For this, we use the empirical estimate given the data:
+
+$$\mu_j \approx \frac{1}{\text{number of training examples of class } j } \times {\sum_{y_i = c_j} x_i} $$
+
+which is just the average value of $x$ in the class $c_j$.
+
+We estimate the variance using a weighted average of the sample variances (this is the *pooled variance*, used when we are estimating the variance of a bunch of populations with different means):
+
+$$ \sigma^2 \approx \frac{1}{n - k}\sum_{j=1}^k \sum_{y_i = c_j}(x_i - \mu_j)^2$$
+
